@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  akswebsite:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - S_AKSAPI_SERVICE_HOST=aksapi
+      - S_AKSAPI_SERVICE_PORT=80
+    ports:
+      - "80"
+
+  aksapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
