@@ -24,10 +24,6 @@ az acr create --resource-group acrDemo --name stevesACR --sku Basic
 
 
 ## Create Azure DevOps Project
-link to url
-![](/images/createproject.png)
-
-## Try it out Yourself
-A working demo of the application features can be found at [http://demo.azurelists.com](http://demo.azurelists.com). The contents of the demo site are reset periodically.
+![Create DevOps Project](images/createproject.png)
 
 
