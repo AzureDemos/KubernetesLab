@@ -19,14 +19,11 @@ namespace AKSWebsite
             var builder = new ConfigurationBuilder()
              .SetBasePath(env.ContentRootPath)
              .AddJsonFile("Configs/appsettings.json", optional: false, reloadOnChange: true)
-             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)//not currently used
              .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true)
              .AddXmlFile($"Configs/Environments/{env.EnvironmentName}/XML/configmap-website.xml", optional: true)
              .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true)
              .AddEnvironmentVariables();
             Configuration = builder.Build();
-
-     
         }
 
         public IConfiguration Configuration { get; }
@@ -41,9 +38,8 @@ namespace AKSWebsite
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IConfiguration>(x => Configuration);
+            services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
             services.AddTransient<IServiceLocator, ServiceLocator>();
         }
