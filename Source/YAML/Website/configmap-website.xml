@@ -1,0 +1,5 @@
+<configuration>
+  <App>
+    <Theme>#{theme}#</Theme>
+  </App>
+</configuration>
