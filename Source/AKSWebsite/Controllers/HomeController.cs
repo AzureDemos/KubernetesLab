@@ -5,33 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AKSWebsite.Models;
-using Microsoft.Extensions.Configuration;
-using AKSWebsite.Services;
 
 namespace AKSWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        private IConfiguration Config;
-        private IServiceLocator ServiceLocator;
-        private IAPIService APIService;
-        public HomeController(IConfiguration config, IServiceLocator serviceLocator, IAPIService apiService)
+        public IActionResult Index()
         {
-            Config = config;
-            ServiceLocator = serviceLocator;
-            APIService = apiService;
-        }
-
-        public async Task <IActionResult> Index()
-        {
-            var apiResponse = await this.APIService.CallAPI();
-            var model = new HomePageModel()
-            {
-                Configuration = this.Config,
-                APILocation = this.ServiceLocator.GetServiceUri(Config["API:Name"]),
-                APIResponse = apiResponse
-            };
-            return View(model);
+            return View();
         }
 
         public IActionResult About()

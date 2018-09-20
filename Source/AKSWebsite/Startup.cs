@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AKSWebsite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,19 +13,9 @@ namespace AKSWebsite
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-             .SetBasePath(env.ContentRootPath)
-             .AddJsonFile("Configs/appsettings.json", optional: false, reloadOnChange: true)
-             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)//not currently used
-             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true)
-             .AddXmlFile($"Configs/Environments/{env.EnvironmentName}/XML/configmap-website.xml", optional: true)
-             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true)
-             .AddEnvironmentVariables();
-            Configuration = builder.Build();
-
-     
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -43,9 +32,6 @@ namespace AKSWebsite
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IConfiguration>(x => Configuration);
-            services.AddTransient<IAPIService, APIService>();
-            services.AddTransient<IServiceLocator, ServiceLocator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
