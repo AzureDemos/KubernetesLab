@@ -35,3 +35,7 @@ body {
         display: none;
     }
 }
+
+.icon {
+    font-size: 25px;
+}
