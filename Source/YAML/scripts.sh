@@ -41,6 +41,7 @@ cd C:\Users\stleonar\Documents\GitHub\KubernetesLab\Source\YAML
 kubectl create -f namespace-dev.yaml
 kubectl create -f namespace-prod.yaml
 
+
 #delete existing secret
 kubectl delete secret website-secret --namespace=dev
 #VSTS make sure outputformat is empty

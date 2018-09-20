@@ -63,16 +63,38 @@ az aks create --resource-group aksDemo --name aksCluster --node-count 3 --enable
 It may be worthwhile putting the registry in a different resource group to the cluster
 ```
 az group create --name acrDemo --location westeurope
-az acr create --resource-group acrDemo --name stevesACR --sku Basic
-```
-
-### Create an Azure Container Registry
-
-It may be worthwhile putting the registry in a different resource group to the cluster
-```
-az group create --name acrDemo --location westeurope
 az acr create --resource-group acrDemo --name azureDemosACR --sku Basic
 ```
+
+## Authenticate with Azure Container Registry from Azure Kubernetes Service
+
+When you're using Azure Container Registry (ACR) with Azure Kubernetes Service (AKS), an authentication mechanism needs to be established. To allow the cluster to access your ACR run the following command. 
+
+```
+#!/bin/bash
+
+AKS_RESOURCE_GROUP=myAKSResourceGroup
+AKS_CLUSTER_NAME=myAKSCluster
+ACR_RESOURCE_GROUP=myACRResourceGroup
+ACR_NAME=myACRRegistry
+
+# Get the id of the service principal configured for AKS
+CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
+
+# Get the ACR registry resource id
+ACR_ID=$(az acr show --name $ACR_NAME --resource-group $ACR_RESOURCE_GROUP --query "id" --output tsv)
+
+# Create role assignment
+az role assignment create --assignee $CLIENT_ID --role Reader --scope $ACR_ID
+```
+
+![Authenticate ACR](images/authenticateacr.png)
+
+More info on this can be found here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
+
+You may also need to enable the admin user role of your Azure Container Registry 
+
+![Authenticate ACR](images/acrenableadmin.png)
 
 ## Create Azure DevOps Project
 ![Create DevOps Project](images/createproject.png)
@@ -104,3 +126,13 @@ API build step
 Push API Build
 
 ![](images/pushapibuild.png)
+
+
+Publish Build Artificats
+
+![](images/publishbuildartifacts.png)
+
+
+Enable CI
+
+![](images/enablebuildci.png)
