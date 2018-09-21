@@ -79,4 +79,4 @@ This will work, the reason we don't recommend doing this, is because the service
 More info on this subject can be found here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
 
-### [Next Step - Setup Azure DevOps project](devopsproj)
+### [Next Step - Setup Azure DevOps project](devopsproj.md)

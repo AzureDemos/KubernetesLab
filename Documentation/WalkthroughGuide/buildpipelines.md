@@ -39,4 +39,4 @@ Enable CI
 ![](images/enablebuildci.png)
 
 
-### [Next Step - Create Release Pipelines](releasepipelines)
+### [Next Step - Create Release Pipelines](releasepipelines.md)
