@@ -1,5 +1,6 @@
+[![banner](images/banner-lab.png)](../readme.md)
 
-## Setup Docker for Windows
+# Setup Docker for Windows
 
 Install Docker for Windows - link
 
@@ -9,7 +10,7 @@ Enable Kubernetes
 
 ![Switch Kubernetes Context](images/switchkubernetescontext.png)
 
-### Alternativly, via the CLI 
+## Alternativly, via the CLI 
 
 You can view all contexts
 ```
@@ -28,7 +29,7 @@ Switch your current context
 kubectl config use-context context-name-here
 ```
 
-## Viewing you local dashboard
+# Viewing your local dashboard
 
 Firstly make sure you have installed the dashboard UI
 
@@ -44,5 +45,5 @@ kubectl proxy
 
 Your dashboard will be made available here: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
-
-### [Next Step - Creating AKS Cluster with Azure CLI](createcluster.md)
+# Next Steps 
+### [Creating AKS Cluster with Azure CLI](createcluster.md)

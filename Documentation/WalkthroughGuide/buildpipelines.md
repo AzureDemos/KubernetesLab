@@ -1,6 +1,5 @@
 [![banner](images/banner-lab.png)](../readme.md)
 
-
 ## New build pipeline
 
 ![Create DevOps Project](images/newbuildpipeline.png)

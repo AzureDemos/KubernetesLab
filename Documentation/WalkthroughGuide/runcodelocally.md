@@ -1,3 +1,6 @@
+[![banner](images/banner-lab.png)](../readme.md)
+
 ## Run Code Locally
 
-### [Next Step - Create Build Pipelines](buildpipelines.md)
+# Next Steps 
+### [Create Build Pipelines](buildpipelines.md)

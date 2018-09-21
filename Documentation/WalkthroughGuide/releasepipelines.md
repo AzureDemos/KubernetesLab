@@ -1,4 +1,6 @@
+[![banner](images/banner-lab.png)](../readme.md)
+
 ## Release Pipelines
 
-
-### [Next Step - Make a code change by adding Application Insights](codechanges.md)
+# Next Steps 
+### [Make a code change by adding Application Insights](codechanges.md)
