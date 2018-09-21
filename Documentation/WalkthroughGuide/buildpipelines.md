@@ -1,3 +1,5 @@
+[![banner](images/banner-lab.png)](../readme.md)
+
 
 ## New build pipeline
 
@@ -38,5 +40,5 @@ Enable CI
 
 ![](images/enablebuildci.png)
 
-
-### [Next Step - Create Release Pipelines](releasepipelines.md)
+# Next Steps 
+### [Create Release Pipelines](releasepipelines.md)

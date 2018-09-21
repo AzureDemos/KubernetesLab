@@ -1,5 +1,4 @@
-
-
+![banner](WalkthroughGuide/images/banner-lab.png)
 
 ## Guided Walkthrough
 
