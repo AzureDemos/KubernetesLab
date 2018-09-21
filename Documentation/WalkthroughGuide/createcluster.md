@@ -27,7 +27,6 @@ When you're using Azure Container Registry (ACR) with Azure Kubernetes Service (
 
 Run this script in the Azure Portal cloud shell to create a new service principal with read only access to your registry. Make sure to replace ```<YOUR_ACR_NAME>``` with the name of your registry.
 
-> Make surte to take note of the Service principal ID and Service principal password from the output
 
 ![Authenticate ACR](images/opencloudshell.png)
 
@@ -51,6 +50,7 @@ CLIENT_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --ou
 echo "Service principal ID: $CLIENT_ID"
 echo "Service principal password: $SP_PASSWD"
 ```
+> Make sure to take note of the Service principal ID and Service principal password from the output
 
 ### Create a Kubernetes Secret
 
