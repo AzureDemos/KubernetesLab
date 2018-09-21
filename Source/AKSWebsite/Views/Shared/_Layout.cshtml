@@ -15,6 +15,10 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    @if (ViewData["Theme"] != null)
+    {
+        <link rel="stylesheet" href="~/css/@(ViewData["Theme"]).css" asp-append-version="true" />
+    }
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">

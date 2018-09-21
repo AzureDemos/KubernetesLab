@@ -24,6 +24,10 @@ namespace AKSWebsite.Controllers
 
         public async Task <IActionResult> Index()
         {
+            var theme = this.Config["App:Theme"];
+            if (theme != null && theme.ToLower() != "default")
+                ViewData["Theme"] = theme.ToLower();
+
             var apiResponse = await this.APIService.CallAPI();
             var model = new HomePageModel()
             {
@@ -31,6 +35,7 @@ namespace AKSWebsite.Controllers
                 APILocation = this.ServiceLocator.GetServiceUri(Config["API:Name"]),
                 APIResponse = apiResponse
             };
+            
             return View(model);
         }
 

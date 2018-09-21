@@ -20,7 +20,7 @@ namespace AKSWebsite
              .SetBasePath(env.ContentRootPath)
              .AddJsonFile("Configs/appsettings.json", optional: false, reloadOnChange: true)
              .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true)
-             .AddXmlFile($"Configs/Environments/{env.EnvironmentName}/XML/configmap-website.xml", optional: true)
+             .AddXmlFile($"Configs/Environments/{env.EnvironmentName}/XML/configmap-website.xml", optional: true, reloadOnChange: true)
              .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true)
              .AddEnvironmentVariables();
             Configuration = builder.Build();
