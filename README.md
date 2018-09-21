@@ -1,4 +1,4 @@
-![Authenticate ACR](documentation/walkthroughguide/images/banner-lab.png)
+![banner](/documentation/walkthroughguide/images/banner-lab.png)
 
 # KubernetesLab
 
