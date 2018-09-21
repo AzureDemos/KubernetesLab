@@ -3,7 +3,7 @@
 
 ## Guided Walkthrough
 
-### [1. Prerequisites](WalkthroughGuide/Prerequisites)
+### [1. Prerequisites](WalkthroughGuide/Prerequisites.md)
 
 ### [2. Creating AKS Cluster with Azure CLI](createcluster)
 
