@@ -1,4 +1,4 @@
-![banner](/documentation/walkthroughguide/images/banner-lab.png)
+![banner](Documentation/WalkthroughGuide/images/banner-lab.png)
 
 # KubernetesLab
 
