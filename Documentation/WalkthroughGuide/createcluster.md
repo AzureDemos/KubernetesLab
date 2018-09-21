@@ -1,18 +1,18 @@
-## Setting up our environment using the Azure CLI
+# Setting up your environment using the Azure CLI
 
-### Create resource group
+## Create resource group
 
 ```
 az group create --name aksDemo --location westeurope
 ```
 
-### Create cluster with application routing and role based access control
+## Create cluster with application routing and role based access control
 
 ```
 az aks create --resource-group aksDemo --name aksCluster --node-count 3 --enable-addons http_application_routing --generate-ssh-keys -r
 ```
 
-### Create an Azure Container Registry
+## Create an Azure Container Registry
 
 It may be worthwhile putting the registry in a different resource group to the cluster
 ```
@@ -51,11 +51,11 @@ echo "Service principal ID: $CLIENT_ID"
 echo "Service principal password: $SP_PASSWD"
 ```
 
-## Create a Kubernetes Secret
+### Create a Kubernetes Secret
 
 Now we've created a service principal that has read access to our registry, we can create an image pull secret in Kubernetes that the deployments will use later.
 
-### First connect to your cluster
+#### First connect to your cluster
 
 First you will need to connect to your cluster. Open the portal, navigate to your AKS cluster, then click on the "View Kubernetes Dashboard" link and follow the instructions.
 
@@ -68,7 +68,7 @@ kubectl create secret docker-registry acr-auth --docker-server <acr-login-server
 ```
 
 
-### Thoubleshooting 
+#### Thoubleshooting 
 
 If you have difficulties creating the Service Principal, you can enable the admin user role for your Azure Container Registry and use the UserName and Password in place of the ```<service-principal-ID>``` and ```<service-principal-password>```
 
@@ -76,7 +76,7 @@ This will work, the reason we don't recommend doing this, is because the service
 
 ![Authenticate ACR](images/acrenableadmin.png)
 
-More info on this subject can be found here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
+More info on this subject can be found here at  https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
-
-### [Next Step - Setup Azure DevOps project](devopsproj.md)
+# Next Steps 
+### [Setup Azure DevOps project](devopsproj.md)
