@@ -50,3 +50,5 @@ spec:
       - name: secrets-volume
         secret:
           secretName: website-secret
+      imagePullSecrets:
+      - name: acr-auth

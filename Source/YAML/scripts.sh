@@ -47,7 +47,7 @@ kubectl delete secret website-secret --namespace=dev
 #VSTS make sure outputformat is empty
 
 #create secret from file
-kubectl create secret generic website-secret --from-file=./Website/secret-frontend.json --namespace=dev
+kubectl create secret generic website-secret --from-file=./Website/secret-website.json --namespace=dev
 
 #create / update config map - inline json
 kubectl apply -f ./Website/configmap-website.yaml --namespace=dev
@@ -57,13 +57,13 @@ kubectl delete configmap config-xml-website --namespace=dev
 #VSTS make sure outputformat is empty
 
 #create config map external xml
-kubectl create configmap config-xml-website --from-file=./Website/configmap-frontend.xml --namespace=dev
+kubectl create configmap config-xml-website --from-file=./Website/configmap-website.xml --namespace=dev
 
 #create / update application
 kubectl apply -f ./Website/deployment-website.yaml --namespace=dev
 
 #scale 
-kubectl scale deployment frontend-deployment --replicas=2
+kubectl scale deployment website-deployment --replicas=2
 
 #view service
 IPAddress

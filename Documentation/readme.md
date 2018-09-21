@@ -52,10 +52,10 @@ Your dashboard will be made available here: http://localhost:8001/api/v1/namespa
 az group create --name aksDemo --location westeurope
 ```
 
-### Create cluster with application routing
+### Create cluster with application routing and role based access control
 
 ```
-az aks create --resource-group aksDemo --name aksCluster --node-count 3 --enable-addons http_application_routing --generate-ssh-keys
+az aks create --resource-group aksDemo --name aksCluster --node-count 3 --enable-addons http_application_routing --generate-ssh-keys -r
 ```
 
 ### Create an Azure Container Registry
@@ -68,25 +68,38 @@ az acr create --resource-group acrDemo --name azureDemosACR --sku Basic
 
 ## Authenticate with Azure Container Registry from Azure Kubernetes Service
 
-When you're using Azure Container Registry (ACR) with Azure Kubernetes Service (AKS), an authentication mechanism needs to be established. To allow the cluster to access your ACR run the following command. 
+When you're using Azure Container Registry (ACR) with Azure Kubernetes Service (AKS), an authentication mechanism needs to be established. 
+
+Run this script in the Azure Portal cloud shell to create a new service principal with read only access to your registry. Make sure to replace ```**YOUR_ACR_NAME**``` with the name of your registry.
+
+> Make surte to take note of the Service principal ID and Service principal password from the output
+
+![Authenticate ACR](images/opencloudshell.png)
 
 ```
 #!/bin/bash
 
-AKS_RESOURCE_GROUP=myAKSResourceGroup
-AKS_CLUSTER_NAME=myAKSCluster
-ACR_RESOURCE_GROUP=myACRResourceGroup
-ACR_NAME=myACRRegistry
+ACR_NAME=**YOUR_ACR_NAME**
+SERVICE_PRINCIPAL_NAME=**YOUR_ACR_NAME**-acr-service-principal
 
-# Get the id of the service principal configured for AKS
-CLIENT_ID=$(az aks show --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --query "servicePrincipalProfile.clientId" --output tsv)
+# Populate the ACR login server and resource id.
+ACR_LOGIN_SERVER=$(az acr show --name $ACR_NAME --query loginServer --output tsv)
+ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
 
-# Get the ACR registry resource id
-ACR_ID=$(az acr show --name $ACR_NAME --resource-group $ACR_RESOURCE_GROUP --query "id" --output tsv)
+# Create a 'Reader' role assignment with a scope of the ACR resource.
+SP_PASSWD=$(az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --role Reader --scopes $ACR_REGISTRY_ID --query password --output tsv)
 
-# Create role assignment
-az role assignment create --assignee $CLIENT_ID --role Reader --scope $ACR_ID
+# Get the service principal client id.
+CLIENT_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --output tsv)
+
+# Output used when creating Kubernetes secret.
+echo "Service principal ID: $CLIENT_ID"
+echo "Service principal password: $SP_PASSWD"
 ```
+
+## Create a Kubernetes Secret
+
+Now we've created a service principal that has read access to our registry, we can create an image pull secret in Kubernetes that the deployments will use later.
 
 ![Authenticate ACR](images/authenticateacr.png)
 
@@ -131,6 +144,10 @@ Push API Build
 Publish Build Artificats
 
 ![](images/publishbuildartifacts.png)
+
+Choose the folder to publish
+
+![](images/publishapibuild.png)
 
 
 Enable CI

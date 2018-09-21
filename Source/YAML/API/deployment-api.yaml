@@ -24,9 +24,11 @@ spec:
     spec:
       containers:
       - name: api
-        image: stevesacr.azurecr.io/api:latest
+        image: azuredemosacr.azurecr.io/api:latest
         ports:
         - containerPort: 80
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
+      imagePullSecrets:
+      - name: acr-auth
