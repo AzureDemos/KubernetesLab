@@ -1,5 +1,8 @@
 ![banner](WalkthroughGuide/images/banner-lab.png)
 
+
+![banner](WalkthroughGuide/images/architecture.png)
+
 ## Guided Walkthrough
 
 ### [1. Prerequisites](WalkthroughGuide/Prerequisites.md)

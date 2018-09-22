@@ -41,6 +41,8 @@ cd C:\Users\stleonar\Documents\GitHub\KubernetesLab\Source\YAML
 kubectl create -f namespace-dev.yaml
 kubectl create -f namespace-prod.yaml
 
+#create / update API
+kubectl apply -f ./API/deployment-api.yaml --namespace=dev
 
 #delete existing secret
 kubectl delete secret website-secret --namespace=dev
@@ -59,7 +61,7 @@ kubectl delete configmap config-xml-website --namespace=dev
 #create config map external xml
 kubectl create configmap config-xml-website --from-file=./Website/configmap-website.xml --namespace=dev
 
-#create / update application
+#create / update website
 kubectl apply -f ./Website/deployment-website.yaml --namespace=dev
 
 #scale 
