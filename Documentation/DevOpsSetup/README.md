@@ -7,4 +7,4 @@
 ![Create DevOps Project](images/importrepo.png)
 
 # Next Steps 
-### [Run the code locally in Visual Studio](runcodelocally.md)
+### [Run the code locally in Visual Studio](../LookingIntoTheCode)

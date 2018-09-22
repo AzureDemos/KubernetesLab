@@ -32,4 +32,4 @@ https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
 
 
 # Next Steps 
-### [Make a code change by adding Application Insights](codechanges.md)
+### [Make a code change by adding Application Insights](../AddApplicationInsights)

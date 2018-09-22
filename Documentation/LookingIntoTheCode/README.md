@@ -2,4 +2,4 @@
 
 
 
-### [Guided Walkthrough](Documentation/readme.md)
+### [Guided Walkthrough](../BuildPipelines)

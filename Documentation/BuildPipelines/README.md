@@ -53,4 +53,4 @@ Follow the same steps as the API build pipeline line with the following changes:
 
 
 # Next Steps 
-### [Create Release Pipelines](releasepipelines.md)
+### [Create Release Pipelines](../ReleasePipelines)
