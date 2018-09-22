@@ -1,12 +1,12 @@
-![banner](Documentation/images/banner-lab.png)
+![banner](/Documentation/images/banner-lab.png)
 
 # Kubernetes Lab
 
-Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build a Dot Net Core application and deploy it into Kubernetes on Azure (AKS). The lab leverages native Kubernetes components such as config maps and secrets, along with Azure based technologies such as Azure DevOps, Azure Container Registry, Log Analytics and Application Insights.
+Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build a DotNet Core application and deploy it into Kubernetes on Azure (AKS). The lab leverages native Kubernetes components such as config maps and secrets, along with Azure based technologies such as Azure DevOps, Azure Container Registry, Log Analytics and Application Insights.
 
 ## Lab Architecture and Technologies 
 
-![banner](Documentation/images/architecture.png)
+![banner](/Documentation/images/architecture.png)
 
 
 ## Guided Walkthrough
