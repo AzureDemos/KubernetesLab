@@ -11,19 +11,19 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ## Guided Walkthrough
 
-### [1. Prerequisites](WalkthroughGuide/Prerequisites.md)
+### [1. Prerequisites](Documentation/Prerequisites)
 
-### [2. Creating AKS Cluster](Documentation/CreateEnvironment)
+### [2. Creating the environment](Documentation/CreateEnvironment)
 
-### [3. Setup Azure DevOps project](WalkthroughGuide/devopsproj.md)
+### [3. Setup Azure DevOps project](Documentation/DevOpsSetup)
 
-### [4. Run the code locally in Visual Studio](WalkthroughGuide/runcodelocally.md)
+### [4. Run the code locally in Visual Studio](Documentation/LookingIntoTheCode)
 
-### [5. Create Build Pipelines](WalkthroughGuide/buildpipelines.md)
+### [5. Create Build Pipelines](Documentation/BuildPipelines)
 
-### [5. Create Release Pipelines](WalkthroughGuide/releasepipelines.md)
+### [5. Create Release Pipelines](Documentation/ReleasePipelines)
 
-### [6. Make a code change by adding Application Insights](WalkthroughGuide/codechanges.md)
+### [6. Make a code change by adding Application Insights](Documentation/AddApplicationInsights)
 
-### [7. Monitoring the application with Log Analytics and Application Insights](WalkthroughGuide/codechanges.md)
+### [7. Monitoring the application with Log Analytics and Application Insights](Documentation/Monitoring)
 

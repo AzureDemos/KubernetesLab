@@ -1,4 +1,5 @@
-![banner](Documentation/WalkthroughGuide/images/banner-lab.png)
+[![banner](../images/banner-lab.png)](../../README.md)
+
 
 
 ### [Guided Walkthrough](Documentation/readme.md)

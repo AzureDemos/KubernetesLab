@@ -1,2 +1,3 @@
-![banner](../images/banner-lab.png)
+[![banner](../images/banner-lab.png)](../../README.md)
+
 
