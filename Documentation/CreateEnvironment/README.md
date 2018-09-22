@@ -1,4 +1,4 @@
-![banner](../images/banner-lab.png)
+[![banner](../images/banner-lab.png)](../../readme.md)
 
 # Setting up your environment using the Azure CLI
 
