@@ -1,4 +1,4 @@
-![banner](Documentation/WalkthroughGuide/images/banner-lab.png)
+![banner](Documentation/images/banner-lab.png)
 
 # Kubernetes Lab
 
@@ -6,7 +6,7 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ## Lab Architecture and Technologies 
 
-![banner](documentation/images/architecture.png)
+![banner](Documentation/images/architecture.png)
 
 
 ## Guided Walkthrough
