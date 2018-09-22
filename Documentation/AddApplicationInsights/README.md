@@ -1,6 +1,6 @@
 [![banner](../images/banner-lab.png)](../../README.md)
 
-
+#Adding Application Insights
 
 # Next Steps 
-### [Make a code change by adding Application Insights](../Monitoring)
+### [Monitoring](../Monitoring)

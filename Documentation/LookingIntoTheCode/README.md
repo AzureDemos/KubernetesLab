@@ -1,5 +1,6 @@
 [![banner](../images/banner-lab.png)](../../README.md)
 
+# Looking into the code
 
 
-### [Guided Walkthrough](../BuildPipelines)
+### [Create Build Pipelines](../BuildPipelines)
