@@ -6,7 +6,7 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ## Lab Architecture and Technologies 
 
-![banner](/Documentation/images/architecture.png)
+![Architecture](/Documentation/images/architecture.png)
 
 
 ## Guided Walkthrough
