@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: stevesacr.azurecr.io/website:latest
+        image: #{registrylocation}#/website:latest
         ports:
         - containerPort: 80
         env:

@@ -9,7 +9,7 @@ data:
   configmap-frontend.json: |
     {
     "API": {
-        "URI": "#{apiuri}#"
+        "URI": "#{apiname}#"
       }
     }
 
