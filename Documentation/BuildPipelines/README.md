@@ -2,22 +2,44 @@
 
 # New API build pipeline
 
-![Create DevOps Project](images/newbuildpipeline.png)
+Within your Azure DevOps project, select Builds from the Pipelines menu and create a new Build Pipeline. 
 
-## Create empty piple line
+Select Azure Repos Git as the source and choose your imported repository. 
 
-![](images/emptybuild.png)
+![Create new build](images/newbuildpipeline.png)
 
-### linux agent - name it
+## Create empty build pipeline
+
+Under the templates selection, choose Empty Pipeline.
+
+![Empty Template](images/emptybuild.png)
+
+### Select Linux Agent Pool
+
+Choose Hosted Linux as the agent pool and rename your Pipeline to ```API-Build-Pipeline```
 
 ![](images/linuxagentbuild.png)
 
-### add docker build step
+### Add Docker Build Step
+
+Click the plus icon to the far right of "Agent Job 1" to bring up the new build step selection window. 
+
+Search for "Docker" and add the Docker build step. 
 
 ![](images/adddockerbuildstep.png)
 
+### Edit Docker Build Step
 
-### API build step
+In the edit window for the Docker build step, set the following properties:
+
+1. Name - Build API Image
+2. Container Registry Type - Azure Container Registry
+3. Azure Subscription - Chose the subscription your ACR and AKS reside
+4. Azure Container Registry - Select your ACR from the drop down
+Command - Build
+Dockerfile - Click on the ... to open a pop out window and chose the file ```Source/AKSAPI/Dockerfile.ci```
+5. Image name - api:$(Build.BuildId)
+6. Check the box Include Latest Tag
 
 ![](images/apibuild.png)
 
