@@ -4,23 +4,25 @@
 
 Within your Azure DevOps project, select Builds from the Pipelines menu and create a new Build Pipeline. 
 
+## 1. Select the source for the build
+
 Select Azure Repos Git as the source and choose your imported repository. 
 
 ![Create new build](images/newbuildpipeline.png)
 
-## 1. Create empty build pipeline
+## 2. Create empty build pipeline
 
 Under the templates selection, choose Empty Pipeline.
 
 ![Empty Template](images/emptybuild.png)
 
-### 2. Select Linux Agent Pool
+## 3. Select Linux Agent Pool
 
 Choose Hosted Linux as the agent pool and rename your Pipeline to ```API-Build-Pipeline```
 
 ![Linux Agent](images/linuxagentbuild.png)
 
-### 3. Add Docker Build Step (API Build)
+## 4. Add Docker Build Step (API Build)
 
 Click the plus icon to the far right of "Agent Job 1" to bring up the new build step selection window. 
 
@@ -28,7 +30,7 @@ Search for "Docker" and add the Docker build step.
 
 ![Add Docker Build Step](images/adddockerbuildstep.png)
 
-### 4. Edit Docker Build Step (API Build)
+### 4.1 Edit Docker Build Step (API Build)
 
 In the edit window for the Docker build step, set the following properties:
 
@@ -43,10 +45,11 @@ In the edit window for the Docker build step, set the following properties:
 
 ![Edit Build Docker](images/apibuild.png)
 
-### 5. Add another Docker Build Step (API Push)
-Follow the same process as step - Add Docker Build Step (API Build)
+## 5. Add another Docker Build Step (API Push)
 
-### 6. Edit Docker Build Step (API Push)
+Follow the same process as Step 4. Add Docker Build Step (API Build)
+
+### 5.1 Edit Docker Build Step (API Push)
 
 In the edit window for the Docker build step, set the following properties:
 
@@ -61,13 +64,13 @@ In the edit window for the Docker build step, set the following properties:
 ![Edit Push Docker](images/pushapibuild.png)
 
 
-### 7. Publish Build Artificats
+## 6. Publish Build Artificats
 
 Add a third build step and search for "publish" then add the ```Publish Build Artifacts``` task.
 
 ![Publish Artifacts](images/publishbuildartifacts.png)
 
-#### 8. Choose the folder to publish
+### 6.1. Choose the folder to publish
 
 Edit the Publish Build Artifacts task, and lcik on the ... next to "Path to Publish"
 
@@ -76,13 +79,13 @@ In the pop up window select the ```deployment-api.yaml``` file as shown in the i
 ![Path to Publish](images/publishapibuild.png)
 
 
-### 9. Enable Continous Integration
+## 7. Enable Continous Integration
 
 Click on the "Tiggers" tab and check the box "Enable continous integration"
 
 ![Enable CI](images/enablebuildci.png)
 
-### 10. Trigger a new build
+### 8. Trigger a new build
 
 To test everything is working, click the Save and Queue new build button to trigger a new build. 
 
