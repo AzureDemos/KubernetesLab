@@ -18,17 +18,17 @@ Under the templates selection, choose Empty Pipeline.
 
 Choose Hosted Linux as the agent pool and rename your Pipeline to ```API-Build-Pipeline```
 
-![](images/linuxagentbuild.png)
+![Linux Agent](images/linuxagentbuild.png)
 
-### Add Docker Build Step
+### Add Docker Build Step (API Build)
 
 Click the plus icon to the far right of "Agent Job 1" to bring up the new build step selection window. 
 
 Search for "Docker" and add the Docker build step. 
 
-![](images/adddockerbuildstep.png)
+![Add Docker Build Step](images/adddockerbuildstep.png)
 
-### Edit Docker Build Step
+### Edit Docker Build Step (API Build)
 
 In the edit window for the Docker build step, set the following properties:
 
@@ -36,33 +36,55 @@ In the edit window for the Docker build step, set the following properties:
 2. Container Registry Type - Azure Container Registry
 3. Azure Subscription - Chose the subscription your ACR and AKS reside
 4. Azure Container Registry - Select your ACR from the drop down
-Command - Build
-Dockerfile - Click on the ... to open a pop out window and chose the file ```Source/AKSAPI/Dockerfile.ci```
-5. Image name - api:$(Build.BuildId)
-6. Check the box Include Latest Tag
+5. Command - Build
+6. Dockerfile - Click on the ... to open a pop up window and chose the file ```Source/AKSAPI/Dockerfile.ci```
+7. Image name - ```api:$(Build.BuildId)```
+8. Check the box "Include Latest Tag"
 
-![](images/apibuild.png)
+![Edit Build Docker](images/apibuild.png)
 
-### Push API Build
+### Add another Docker Build Step (API Push)
+Follow the same process as step - Add Docker Build Step (API Build)
 
-![](images/pushapibuild.png)
+### Edit Docker Build Step (API Push)
+
+In the edit window for the Docker build step, set the following properties:
+
+1. Name - Push API Image
+2. Container Registry Type - Azure Container Registry
+3. Azure Subscription - Chose the subscription your ACR and AKS reside
+4. Azure Container Registry - Select your ACR from the drop down
+5. Command - Push
+6. Image name - ```api:$(Build.BuildId)```
+7. Check the box "Include Latest Tag"
+
+![Edit Push Docker](images/pushapibuild.png)
 
 
 ### Publish Build Artificats
 
-![](images/publishbuildartifacts.png)
+Add a third build step and search for "publish" then add the ```Publish Build Artifacts``` task.
+
+![Publish Artifacts](images/publishbuildartifacts.png)
 
 #### Choose the folder to publish
 
-![](images/publishapibuild.png)
+Edit the Publish Build Artifacts task, and lcik on the ... next to "Path to Publish"
+
+In the pop up window select the ```deployment-api.yaml``` file as shown in the image below. 
+
+![Path to Publish](images/publishapibuild.png)
 
 
-### Enable CI
+### Enable Continous Integration
 
-![](images/enablebuildci.png)
+Click on the "Tiggers" tab and check the box "Enable continous integration"
 
-### Trigger new build
-Click save and queue
+![Enable CI](images/enablebuildci.png)
+
+### Trigger a new build
+
+To test everything is working, click the Save and Queue new build button to trigger a new build. 
 
 # New Website build pipeline
 
@@ -73,6 +95,9 @@ Follow the same steps as the API build pipeline line with the following changes:
 3. Set the Image Name in the docker build steps to ```website:$(Build.BuildId)```
 4. Set the Path to Publish in the Publish Artifacts step to ```Source/YAML/Website```
 
+# Review
+
+After following this you should now have two build pipelines; one for the API and one for the website which both push Docker images into your ACR with their build number and the latest tag and then publish the YAML files required to deploy the applications, ready for the release pipelines that we will build next to pickup. 
 
 # Next Steps 
 ### [Create Release Pipelines](../ReleasePipelines)
