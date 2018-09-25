@@ -88,8 +88,19 @@ This time choose the Website build as the artifact and name the release "Website
 
 ![](images/websitevariables.png)
 
+### Add Replace Tokens Task
+
+Do the same as in steps 8 and 9 of the API release and make sure that this task is dragged to the top of all tasks
+
+### 
 
 ![](images/kubernetesTask.png)
+
+delete secret
+
+create secret
+
+> Tip! to find the correct path of the secret-website.json file, check the use configurations box above and select the file, copy the location back into the arguments, then un-check the use configurationsbox
 
 
 # Next Steps 
