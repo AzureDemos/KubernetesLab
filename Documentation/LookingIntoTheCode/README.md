@@ -27,7 +27,7 @@ When running in debug this location is Development, but within our YAML files we
 
 ![YAML](images/yamlconfigs.png)
 
-> Note, our release pipelines will replace the value ```{env.EnvironmentName}``` with values defined for each environment 
+> Note, our release pipelines will replace the value ```#{EnvironmentName}#``` with values defined for each environment 
 
 
 ## IOC / Dependency Injection
