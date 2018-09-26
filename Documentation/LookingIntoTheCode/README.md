@@ -39,12 +39,12 @@ Two Services have been created:
 
 ![Start Up](images/services.png)
 
-Within the CongigureServices method we have registered these services and the configuration into the IOC container, so they can be injected into our HomeController.cs
+Within the ConfigureServices method we have registered these services and the configuration into the IOC container, so they can be injected into our HomeController.cs
 
 ![Start Up](images/ioc.png)
 
 
-Home Controller
+## Home Controller
 
 The HomeController takes the Configuration, ServiceLocator and APIService in its constructor.
 It then call thes API and builds a Model to display the config to the user and the response from the API
