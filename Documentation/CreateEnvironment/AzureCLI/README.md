@@ -1,4 +1,4 @@
-[![banner](../images/banner-lab.png)](../../README.md)
+[![banner](../../images/banner-lab.png)](../../../README.md)
 
 # Setting up your environment using the Azure CLI
 
@@ -42,7 +42,7 @@ When you're using Azure Container Registry (ACR) with Azure Kubernetes Service (
 
 Run this script in the Azure Portal cloud shell to create a new service principal with read only access to your registry. Make sure to replace ```<YOUR_ACR_NAME>``` with the name of your registry.
 
-![Open Cloud Shell](images/opencloudshell.png)
+![Open Cloud Shell](../images/opencloudshell.png)
 
 ```
 #!/bin/bash
@@ -74,7 +74,7 @@ Now we've created a service principal that has read access to our registry, we c
 
 First you will need to connect to your cluster. Open the portal, navigate to your AKS cluster, then click on the "View Kubernetes Dashboard" link and follow the instructions.
 
-![AKS Credentials](images/getclustercreds.png)
+![AKS Credentials](../images/getclustercreds.png)
 
 Once your command window is connected to your cluster we can run a command to install a secret into the cluster. The email address can be anything.
 
@@ -88,7 +88,7 @@ If you have difficulties creating the Service Principal, you can enable the admi
 
 Although this will work, the reason we didn't recommend doing this in the first place is because the service principal only has read accesss, where as the admin user role will have full access to the registry. 
 
-![Enable Admin ACR](images/acrenableadmin.png)
+![Enable Admin ACR](../images/acrenableadmin.png)
 
 More info on this subject can be found here at  https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
@@ -99,4 +99,4 @@ Now you should have successfully created a Kubernetes cluster (AKS) and an Azure
 
 
 # Next Steps 
-### [Setup Azure DevOps project](../DevOpsSetup)
+### [Setup Azure DevOps project](../../DevOpsSetup)
