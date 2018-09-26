@@ -9,7 +9,7 @@ data:
   configmap-website.json: |
     {
     "API": {
-        "URI": "#{apiname}#"
+        "Name": "#{apiname}#"
       }
     }
 

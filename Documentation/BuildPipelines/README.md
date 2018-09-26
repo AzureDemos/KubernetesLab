@@ -93,7 +93,7 @@ To test everything is working, click the Save and Queue new build button to trig
 
 Follow the same steps as the API build pipeline line with the following changes: 
 
-1. Set the title as ```Website Build Pipeline```
+1. Set the title as ```Website-Build-Pipeline```
 2. Set the Docker File in the docker build steps as ```Source/AKSWebsite/Dockerfile.ci```
 3. Set the Image Name in the docker build steps to ```website:$(Build.BuildId)```
 4. Set the Path to Publish in the Publish Artifacts step to ```Source/YAML/Website```

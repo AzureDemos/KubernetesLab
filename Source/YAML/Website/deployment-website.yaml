@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: #{registrylocation}#/website:latest
+        image: #{registrylocation}#/website:#{Build.BuildNumber}#
         ports:
         - containerPort: 80
         env:

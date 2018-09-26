@@ -47,15 +47,7 @@ namespace AKSWebsite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
+            app.UseDeveloperExceptionPage(); //We are leaving this on for this demo to help trace any errors
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

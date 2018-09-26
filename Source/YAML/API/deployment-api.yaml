@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: #{registrylocation}#/api:latest
+        image: #{registrylocation}#/api:#{Build.BuildNumber}#
         ports:
         - containerPort: 80
         env:
