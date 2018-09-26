@@ -32,13 +32,13 @@ spec:
           value: "#{EnvironmentName}#"
         volumeMounts:
         - name: jsonconfig-volume
-          mountPath: /app/Configs/Environments/Kubernetes/Json
+          mountPath: /app/Configs/Environments/#{EnvironmentName}#/Json
           readOnly: true
         - name: xmlconfig-volume
-          mountPath: /app/Configs/Environments/Kubernetes/XML
+          mountPath: /app/Configs/Environments/#{EnvironmentName}#/XML
           readOnly: true
         - name: secrets-volume
-          mountPath: /app/Configs/Environments/Kubernetes/Secrets
+          mountPath: /app/Configs/Environments/#{EnvironmentName}#/Secrets
           readOnly: true
       volumes:
       - name: jsonconfig-volume
