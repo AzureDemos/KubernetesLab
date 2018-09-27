@@ -11,7 +11,7 @@ locals {
 resource "kubernetes_secret" "demo" {
   metadata {
     name      = "acr-auth"
-    namespace = "Default"
+    namespace = "default"
   }
 
   # terraform states this is a map of the variables here, it actual wants a structured json object
