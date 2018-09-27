@@ -92,11 +92,5 @@ Although this will work, the reason we didn't recommend doing this in the first 
 
 More info on this subject can be found here at  https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
-
-# Review
-
-Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authenicated required to pull images from your private ACR. 
-
-
 # Next Steps 
 ### [Setup Azure DevOps project](../../DevOpsSetup)
