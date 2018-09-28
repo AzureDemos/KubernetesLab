@@ -60,7 +60,7 @@ Set the target files to equal
 **/*.xml
 ```
 
-This task will find all files in our artifacts that are YAML, Json or XML and then replace any values that match a pattern ```#{somethingToBeReplaced}#``` with the variables we have set in Step 6
+This task will find all files in our artifacts that are YAML, Json or XML and then replace any values that match a pattern ```#{somethingToBeReplaced}#``` with the variables we have set in Step 4
 
 
 ![Replace Tokens Config](images/replacetokens.png)
