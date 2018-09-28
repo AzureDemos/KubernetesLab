@@ -28,4 +28,4 @@ az account set --subscription {subscription_guid}
 
 # Review
 
-Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authenication required to pull images from your private ACR. 
+Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authentication required to pull images from your private ACR. 
