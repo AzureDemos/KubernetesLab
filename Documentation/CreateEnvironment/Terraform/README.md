@@ -48,7 +48,7 @@ terraform plan -var "resource_name={replace}"
 
 ### Execute terraform
 
-Finally we need to run terraform with specific variables to provision our environment.
+Finally we need to run terraform with specific variables to provision our environment. The resource name should be lowercase, not contain any special characters and be 10 or less characeters long.
 
 ```
 terraform apply -var "resource_name={replace}"
