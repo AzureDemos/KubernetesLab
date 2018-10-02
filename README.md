@@ -13,9 +13,9 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ### [1. Prerequisites](Documentation/Prerequisites)
 
-### [2. Creating the environment](Documentation/CreateEnvironment)
+### [2. Setup Azure DevOps project](Documentation/DevOpsSetup)
 
-### [3. Setup Azure DevOps project](Documentation/DevOpsSetup)
+### [3. Creating the environment](Documentation/CreateEnvironment)
 
 ### [4. Run the code locally in Visual Studio](Documentation/LookingIntoTheCode)
 
