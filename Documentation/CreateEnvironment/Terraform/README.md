@@ -36,7 +36,7 @@ terraform init
 This step will allow Terraform to build its plan and highlight what it plans to create, update and delete against your environment.
 
 ```
-terraform plan
+terraform plan -var "resource_name={replace}"
 ```
 
 ### Execute terraform
