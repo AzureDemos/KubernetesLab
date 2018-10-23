@@ -2,7 +2,7 @@
 
 # Setting up your environment using the Azure CLI
 
-Before starting you should have already installed the Azure CLI and logged in. 
+Before starting you should have already installed the Azure CLI and logged in.
 
 ## Create resource group
 All resources within Azure are added to a Resource Group. 

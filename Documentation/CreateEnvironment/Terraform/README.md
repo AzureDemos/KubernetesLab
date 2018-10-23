@@ -9,7 +9,8 @@ Unlike the Azure CLI, Terraform is a 3rd party product, while this has a negativ
 - Ability to mix and match providers, meaning we can use the Azure and the Kubernetes native providers.
 - State management. Terraform tracks state of the environment, allowing it to run a diff when adding new resources as well as fixing the environment if things are removed.
 
-## setup Azure DevOps (Optional)
+
+## Setup Azure DevOps (Optional)
 
 To ensure you only have one copy of the code on your local machine, we recommended importing the GitHub repo into Azure DevOps first, then clone from there.
 
