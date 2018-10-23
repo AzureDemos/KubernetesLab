@@ -37,4 +37,4 @@ Now you should have created an Azure DevOps account or logged into an existing o
 
 # Next Steps 
 
-### [Looking into the code](../LookingIntoTheCode)
+### [Creating AKS Cluster and Container Registry](../CreateEnvironment)

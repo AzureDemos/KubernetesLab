@@ -57,4 +57,4 @@ terraform apply -var "resource_name={replace}"
 
 # Next Steps
 
-### [Setup Azure DevOps project](../../DevOpsSetup)
+### [Looking into the code](../../LookingIntoTheCode)

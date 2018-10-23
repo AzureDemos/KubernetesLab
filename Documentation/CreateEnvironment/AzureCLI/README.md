@@ -93,4 +93,5 @@ Although this will work, the reason we didn't recommend doing this in the first 
 More info on this subject can be found here at  https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
 # Next Steps 
-### [Setup Azure DevOps project](../../DevOpsSetup)
+
+### [Looking into the code](../../LookingIntoTheCode)

@@ -46,4 +46,5 @@ kubectl proxy
 Your dashboard will be made available here: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
 # Next Steps 
-### [Creating AKS Cluster with Azure CLI](../CreateEnvironment)
+
+### [Setup Azure DevOps Project](../DevOpsSetup)

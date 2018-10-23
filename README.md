@@ -27,3 +27,7 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ### [7. Monitoring the application with Log Analytics and Application Insights](Documentation/Monitoring)
 
+
+## Support
+
+Create GitHub issues and we'll respond as quickly as possible
