@@ -59,7 +59,13 @@ kubectl create --namespace=dev -f https://raw.githubusercontent.com/AzureDemos/K
 kubectl create --namespace=prod -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-prod.yaml
 
 ```
+This script can take upto half an hour to run, but once its finished you should have a new resource group with an Azure Container Registry and an AKS Cluster. 
+
+The cluster will have 'dev' and 'prod' namesapces installed along with a secret that enables it to pull images down from your private Azure Container Registry. 
+
 ## Detailed Step by Step Instructions
+
+Alternatively, if you have more time and want to understand how we create each component, then you can follow the more detail step by step instructions for the Azure CLI or Terraform. 
 
 ### Login with the Azure CLI
 
@@ -82,3 +88,8 @@ az account set --subscription {subscription_guid}
 # Review
 
 Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authentication required to pull images from your private ACR. 
+
+
+# Next Steps 
+
+### [Looking into the code](../LookingIntoTheCode)
