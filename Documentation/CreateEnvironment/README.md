@@ -83,7 +83,7 @@ az account set --subscription {subscription_guid}
 
 ### [1. Using the Azure CLI](AzureCLI)
 
-### [1. Using Terraform](Terraform)
+### [2. Using Terraform](Terraform)
 
 # Review
 
