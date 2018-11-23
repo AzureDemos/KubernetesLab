@@ -34,7 +34,13 @@ az aks disable-addons -a monitoring --name <AKSname> --resource-group <resourceg
 
 ## More monitoring options
 
-- [More options on monitoring AKS](https://github.com/markharrisonuk/Lab_AKS/blob/master/aks-3.md)
+Other options include:
+
+- Azure Log Analytics - Container Monitoring solution
+- Prometheus / Grafana - open source toolkit to monitor and alert
+- Datadog - commercial monitoring offering
+
+[More options on monitoring AKS](https://github.com/markharrisonuk/Lab_AKS/blob/master/aks-3.md)
 
 
 
