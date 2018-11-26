@@ -1,0 +1,25 @@
+
+App Settings
+--------------------------------------------------------------------------------------
+Type        FileName                    Values                      Location
+--------------------------------------------------------------------------------------
+Env Vars    - NA                        - EnvironmentName           NA
+Internal    - appsettings.json          - App:CodeVersion           AppRoot
+ConfigMap   - configmap-frontend.xml    - App:Theme                 AppRoot/configs
+ConfigMap   - configmap-frontend.json   - API:URI                   AppRoot/configs
+Secret      - secret-frontend.json      - API:Key, API:Secret      AppRoot/secrets
+
+#Environment variable for backend api
+BACKEND_SERVICE_PORT
+
+*****************************************************************************
+#create namespace (these have already been created)
+
+kubectl create -f ./namespace-dev.yaml
+kubectl create -f ./namespace-prod.yaml
+
+#view service
+IPAddress
+my-svc.my-namespace.svc.cluster.local
+e.g. http://frontend-service.dev.55474723f3b7466899bc.westeurope.aksapp.io
+http://dev-frontend-service.55474723f3b7466899bc.westeurope.aksapp.io

@@ -46,7 +46,7 @@ echo "Service principal password: $SP_PASSWD"
  
 # Create Cluster
 AKS_Name="${RG_NAME}-akscluster"
-az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable-addons http_application_routing --generate-ssh-keys -r
+az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable-addons http_application_routing --generate-ssh-keys 
  
 # Connect to cluster
 az aks get-credentials --resource-group $RG_NAME --name $AKS_Name
@@ -57,6 +57,10 @@ kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER
 # Create Namespaces
 kubectl create --namespace=dev -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-dev.yaml
 kubectl create --namespace=prod -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-prod.yaml
+
+# Create ClusterRoleBinding for Dashboard
+kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+
 
 ```
 This script can take upto half an hour to run, but once its finished you should have a new resource group with an Azure Container Registry and an AKS Cluster. 
