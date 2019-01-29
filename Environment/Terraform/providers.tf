@@ -2,6 +2,10 @@ provider "azurerm" {
   version         = "~> 1.16"
 }
 
+provider "azuread" {
+  version = "~>0.1.0"
+}
+
 provider "random" {
   version = "~> 1.3"
 }
