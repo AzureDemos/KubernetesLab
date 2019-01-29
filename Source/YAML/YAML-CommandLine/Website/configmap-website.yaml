@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-json-website
+  labels:
+    app: website
+    tier: website
+data:
+  configmap-website.json: |
+    {
+    "API": {
+        "Name": "api"
+      }
+    }
+
+
+
+
+
+    

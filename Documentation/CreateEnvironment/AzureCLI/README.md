@@ -2,7 +2,7 @@
 
 # Setting up your environment using the Azure CLI
 
-Before starting you should have already installed the Azure CLI and logged in. 
+Before starting you should have already installed the Azure CLI and logged in.
 
 ## Create resource group
 All resources within Azure are added to a Resource Group. 
@@ -93,4 +93,5 @@ Although this will work, the reason we didn't recommend doing this in the first 
 More info on this subject can be found here at  https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks
 
 # Next Steps 
-### [Setup Azure DevOps project](../../DevOpsSetup)
+
+### [Looking into the code](../../LookingIntoTheCode)
