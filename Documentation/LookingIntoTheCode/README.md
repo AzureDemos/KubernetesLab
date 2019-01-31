@@ -94,7 +94,7 @@ The screen shot below shows we can create **Config Maps** and **Secrets** inside
 
 ![KubeCtl map](images/configs-kubectl.png) 
 
-Finally, within the YAML template for our website we are referencing these names Congig Maps and Secrets and Mounting them into our chosen path within our containers application. 
+Finally, within the YAML template for our website we are referencing these named Config Maps and Secrets and Mounting them into our chosen path within our containers application. 
 
 ![Website Yaml](images/volumemounts-website-yaml.png) 
 
