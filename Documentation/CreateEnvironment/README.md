@@ -51,12 +51,14 @@ az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable
 # Connect to cluster
 az aks get-credentials --resource-group $RG_NAME --name $AKS_Name
  
-# Create secret to connect to ACR
-kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER --docker-username $CLIENT_ID --docker-password $SP_PASSWD --docker-email k8slab@azuredemos.com
- 
 # Create Namespaces
 kubectl create --namespace=dev -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-dev.yaml
 kubectl create --namespace=prod -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-prod.yaml
+
+# Create secret to connect to ACR for each namespace and the default
+kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER --docker-username $CLIENT_ID --docker-password $SP_PASSWD --docker-email k8slab@azuredemos.com
+kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER --docker-username $CLIENT_ID --docker-password $SP_PASSWD --docker-email k8slab@azuredemos.com --namespace=dev
+kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER --docker-username $CLIENT_ID --docker-password $SP_PASSWD --docker-email k8slab@azuredemos.com --namespace=prod
 
 # Create ClusterRoleBinding for Dashboard
 kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
