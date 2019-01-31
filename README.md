@@ -17,7 +17,7 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ### [3. Creating the environment](Documentation/CreateEnvironment)
 
-### [4. Run the code locally in Visual Studio](Documentation/LookingIntoTheCode)
+### [4. Run the code locally in Visual Studio Code](Documentation/LookingIntoTheCode)
 
 ### [5. Create Build Pipelines](Documentation/BuildPipelines)
 

@@ -2,13 +2,13 @@ version: '3.4'
 
 services:
   akswebsite:
-    image: ${DOCKER_REGISTRY}akswebsite
+    image: akswebsite
     build:
       context: .
       dockerfile: AKSWebsite/Dockerfile
 
   aksapi:
-    image: ${DOCKER_REGISTRY}aksapi
+    image: aksapi
     build:
       context: .
       dockerfile: AKSAPI/Dockerfile

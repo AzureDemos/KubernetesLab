@@ -39,3 +39,47 @@ body {
 .icon {
     font-size: 25px;
 }
+
+
+.communication, .communication p {
+    color: #444
+}
+.communication p {
+    margin-bottom: 20px;
+}
+.communication h1 {
+    color: #333 !important;
+}
+
+.communication h4 {
+    color: #333 !important;
+}
+
+.communication img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: 300px;
+    margin-top:15px;
+}
+.banner {
+    width: 100%;
+    margin-top: 15px !important;
+}
+
+.api-response {
+    text-align: center;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 24px;
+    letter-spacing: 0.6px;
+    word-spacing: 0.6px;
+    color: blue !important;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+

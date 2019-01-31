@@ -2,122 +2,155 @@
     ViewData["Title"] = "Home Page";
 }
 @model HomePageModel
+<div class="container body-content">
+    <img src="https://github.com/AzureDemos/KubernetesLab/raw/master/Documentation/images/banner-lab.png" class="banner" />
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <h2>
-                    Azure Demos - ASP.NET Core App in Kubernetes
-                </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Configuration Files</h1>
+            <p>
+                The application contains several different types of config files from JSON and XML documents to environment variables.
+                The app knows which root folder to find these in by checking the <code>ASPNETCORE_ENVIRONMENT</code> environment variable and reading for all sub folders within it.
+            </p>
+            <p>
+                When deploying the application into Kubernetes we can use <strong>Config Maps</strong> and <strong>Secrets</strong> to inject these files into the folder the app it reading.
+            </p>
+            <blockquote>
+                <p>It's important to understand here, that the container which will eventually be stored in a Container Registry <strong>does not contain the folder named Kubernetes or any of the config files</strong>. 
+                The Kubernetes folder and the JSON and XML files are mounted into the contain by Kubernetes and therefore, we can change these per environment in our CI/CD pipelines without re-building the container. </p>
+            </blockquote>
+            <div class="col-md-6">
+                <h3>Development Configs</h3>
+                <img class="img-rounded img-responsive" src="~/images/configs-dev.png" title="config dev.cs" />
+            </div>
+            <div class="col-md-6">
+                <h3>Kubernetes Configs</h3>
+                <img class="img-rounded img-responsive" src="~/images/configs-aks.png" title="config aks" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Configuration builder in app startup</h1>
+            <p>
+                This code snippet shows how we are combining the <code>ASPNETCORE_ENVIRONMENT</code> environment variable with the conventioned based config locations, to build our apps <code>IConfigruation</code> instance.
+            </p>
+            <p>
+                So, when running in Debug the <strong>configmap-frontend.json</strong> file for instance, is located at <strong>Configs/Environments/Development/Json/configmap-website.json</strong>
+            </p>
+            <p>
+                However, when running in AKS the <strong>configmap-frontend.json</strong> file is located at <strong>Configs/Environments/Kubernetes/Json/configmap-website.json</strong>.
+
+
+            </p>
+            <p>
+                This is because we will assign the <code>ASPNETCORE_ENVIRONMENT</code> environment variable in the Pod to <strong>Kubernetes</strong> within the deployment YAML file.
+            </p>
+            <img class="img-rounded img-responsive" src="~/images/startup.png" title="startup.cs" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <h1>This applications current configs settings</h1>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Config Type</th>
+                    <th>Location</th>
+                    <th>File Name</th>
+                    <th>Keys</th>
+                    <th>Values</th>
+                    <th>DevOps Configured</th>
+                </tr>
+                <tr>
+                    <td>App Settings</td>
+                    <td>AppRoot</td>
+                    <td>appsettings.json  </td>
+                    <td>App:CodeVersion</td>
+                    <td><strong>@Model.Configuration["App:CodeVersion"]</strong></td>
+                    <td><i class="icon fas fa-times-circle"></td>
+                </tr>
+                <tr>
+                    <td>Environment Variables</td>
+                    <td>Environment</td>
+                    <td>N/A</td>
+                    <td>ASPNETCORE_ENVIRONMENT</td>
+                    <td><strong>@Model.Configuration["ASPNETCORE_ENVIRONMENT"]</strong></td>
+                    <td><i class="icon fas fa-check-circle"></i></td>
+                </tr>
+                <tr>
+                    <td>Config Map</td>
+                    <td>~/<strong>{EnvironmentName}</strong>/JSON</td>
+                    <td>configmap-frontend.json  </td>
+                    <td>API:Name</td>
+                    <td><strong>@Model.Configuration["API:Name"]</strong></td>
+                    <td><i class="icon fas fa-check-circle"></i></td>
+                </tr>
+                <tr>
+                    <td>Config Map</td>
+                    <td>~/<strong>{EnvironmentName}</strong>/XML</td>
+                    <td>configmap-frontend.xml  </td>
+                    <td>App:Theme</td>
+                    <td><strong>@Model.Configuration["App:Theme"]</strong></td>
+                    <td><i class="icon fas fa-check-circle"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Secret</td>
+                    <td>~/<strong>{EnvironmentName}</strong>/Secrets</td>
+                    <td>secret-frontend.json  </td>
+                    <td> API:Key <br /> API:Secret</td>
+                    <td><strong>@Model.Configuration["API:Key"] <br />@Model.Configuration["API:Secret"]</strong></td>
+                    <td><i class="icon fas fa-check-circle"></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <div class="alert alert-info communication" role="alert">
+                <h1 class="alert-heading">Communicating with other services</h1>
+                <p>
+                    Kubernetes adds Environment variables to a Pod for service discovery in the format <code>{SERVICENAME}_SERVICE_HOST</code> and <code>{SERVICENAME}_SERVICE_PORT</code> where the service name is upper-cased and dashes are converted to underscores.
+                </p>
+                <p>
+                    Our API name is provided to us in the <strong>configmap-frontend.json</strong> and is currently set too <i>@Model.Configuration["API:Name"]</i>
+                </p>
+                <p>Therefore Kubernetes injects the following environment variables into our Pod <code>@(Model.APINameFormmatted)_SERVICE_HOST</code> + <code>@(Model.APINameFormmatted)_SERVICE_PORT</code> which resolve to: <strong>@Model.APILocation</strong></p>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Setting Environment Variables with Docker</h4>
+                        <small>
+                            Although Kubernetes will inject the environment variables automatically we can use this same method for docker compose as shown below or even within app settings of a standard web app
+                        </small>
+                        <img class="img-rounded img-responsive" src="~/images/api-environment-variables.png" title="environment variables" />
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Service Locator Interface</h4>
+                        <small> To keep the code clean and adaptable, the service locator is an interface. This means the method for retrieving the API location is not tied to Kubernetes in anyway</small>
+                        <img class="img-rounded img-responsive" src="~/images/service-locator.png" title="environment variables" />
+                    </div>
+                </div>
+
+
+                <hr>
+                <p class="api-response">@Model.APIResponse</p>
             </div>
         </div>
     </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <br />
-        <h1>This application is deployed with multiple configs</h1>
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>Config Type</th>
-                <th>Location</th>
-                <th>File Name</th>
-                <th>Keys</th>
-                <th>Values</th>
-                <th>DevOps Configured</th>
-            </tr>
-            <tr>
-                <td>App Settings</td>
-                <td>AppRoot</td>
-                <td>appsettings.json  </td>
-                <td>App:CodeVersion</td>
-                <td>@Model.Configuration["App:CodeVersion"]</td>
-                <td><i class="icon fas fa-times-circle"></td>
-            </tr>
-            <tr>
-                <td>Environment Variables</td>
-                <td>Environment</td>
-                <td>N/A</td>
-                <td>ASPNETCORE_ENVIRONMENT</td>
-                <td>@Model.Configuration["ASPNETCORE_ENVIRONMENT"]</td>
-                <td><i class="icon fas fa-check-circle"></i></td>
-            </tr>
-            <tr>
-                <td>Config Map</td>
-                <td>AppRoot/Config1</td>
-                <td>configmap-frontend.json  </td>
-                <td>API:URI</td>
-                <td>@Model.Configuration["API:Name"]</td>
-                <td><i class="icon fas fa-check-circle"></i></td>
-            </tr>
-            <tr>
-                <td>Config Map</td>
-                <td>AppRoot/Config2</td>
-                <td>configmap-frontend.xml  </td>
-                <td>App:Theme</td>
-                <td>@Model.Configuration["App:Theme"]</td>
-                <td><i class="icon fas fa-check-circle"></i></td>
-            </tr>
-
-            <tr>
-                <td>Secret</td>
-                <td>AppRoot/Secrets</td>
-                <td>secret-frontend.json  </td>
-                <td> API:Key <br /> API:Secret</td>
-                <td>@Model.Configuration["API:Key"] <br />@Model.Configuration["API:Secret"]</td>
-                <td><i class="icon fas fa-check-circle"></i></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <br />
-        <div class="alert alert-info" role="alert">
-            <h1 class="alert-heading">Communicating with other services</h1>
-            <p>The internal cluster IP address and port of the backend API can be found in the environment variable <i>"BACKEND_SERVICE_PORT"</i> which is: @Model.APILocation</p>
-            <hr>
-            <h4>@Model.APIResponse</h4>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <h1>Configuration Files</h1>
-        <div class="col-md-6">
-            <h3>Development Configs</h3>
-            <img class="img-rounded img-responsive" src="~/images/configs-dev.png" title="startup.cs" />
-        </div>
-        <div class="col-md-6">
-            <h3>AKS Configs</h3>
-            <img class="img-rounded img-responsive" src="~/images/configs-aks.png" title="startup.cs" />
-        </div>
-      
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <h1>Configuration builder in app startup</h1>
-        <img class="img-rounded img-responsive" src="~/images/startup.png" title="startup.cs" />
-    </div>
-</div>
-

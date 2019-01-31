@@ -33,9 +33,13 @@ namespace AKSWebsite.Controllers
             {
                 Configuration = this.Config,
                 APILocation = this.ServiceLocator.GetServiceUri(Config["API:Name"]),
-                APIResponse = apiResponse
+                APIResponse = apiResponse,
+                APINameFormmatted = "CONFIG_NOT_SET"
             };
-            
+            if (!string.IsNullOrWhiteSpace(Config["API:Name"]))
+                model.APINameFormmatted = Config["API:Name"].ToUpper().Replace("-", "_");
+
+
             return View(model);
         }
 

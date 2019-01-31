@@ -14,12 +14,20 @@ namespace AKSWebsite.Services
             Config = config;
         }
 
+        /// <summary>
+        /// Gets serivce URI from Environment Variables from Kubernets naming convention
+        /// e.g. Host variable for a service named 'demo-aks-api' will be 'DEMO_AKS_API_SERVICE_HOST'
+        /// </summary>
         public string GetServiceUri(string serviceName)
         {
-            var serviceEnvironmentName = serviceName.ToUpper().Replace("-", "_");
-            var host = Config[serviceEnvironmentName + "_SERVICE_HOST"];
-            var port = Config[serviceEnvironmentName + "_SERVICE_PORT"];
+            if (string.IsNullOrWhiteSpace(serviceName))
+                return "";
+
+            var serviceNameFormatted = serviceName.ToUpper().Replace("-", "_");
+            var host = Config[serviceNameFormatted + "_SERVICE_HOST"]; 
+            var port = Config[serviceNameFormatted + "_SERVICE_PORT"];
             var uri = $"http://{host}:{port}";
+
             return uri;
         }
     }

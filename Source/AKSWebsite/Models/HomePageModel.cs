@@ -11,6 +11,6 @@ namespace AKSWebsite.Models
         public IConfiguration Configuration { get; set; }
         public string APIResponse { get; set; }
         public string APILocation { get; set; }
-
+        public string APINameFormmatted { get; set; }
     }
 }
