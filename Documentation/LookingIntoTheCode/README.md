@@ -4,8 +4,6 @@
 
 Open the project in Visual Studio Code and navigate to ```/Source/docker-compose.override.yml``` file in the Explorer window then right click and select 'Open in Terminal'
 
-Now run the command ```wsl``` and hit enter
-
 
 ![Open Terminal](images/runlocally.png)
 
@@ -83,9 +81,22 @@ When running the code locally in docker compose (Not Kubernetes), we inject thes
 
 ## Volume Mounts, YAML, Config Maps and Secrets
 
-The ```configmap-website.json``` file is defined inside a YAML file named 
+The ```configmap-website.json``` file is defined inside a YAML file named **configmap-website.yaml** and the JSON document sits within this file under the data property. 
 
-![yamlconfig map](images/configs-json-yaml.png) **configmap-website
+![yamlconfig map](images/configs-json-yaml.png) 
+
+There's also two other config files within the solution named:
+
+* configmap-website.xml
+* secret-website.json
+
+The screen shot below shows we can create **Config Maps** and **Secrets** inside Kubernetes for these files using the Kubernetes CLI
+
+![KubeCtl map](images/configs-kubectl.png) 
+
+Finally, within the YAML template for our website we are referencing these names Congig Maps and Secrets and Mounting them into our chosen path within our containers application. 
+
+![Website Yaml](images/volumemounts-website-yaml.png) 
 
 
 ## Home Controller
