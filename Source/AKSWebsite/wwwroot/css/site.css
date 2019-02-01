@@ -40,6 +40,7 @@ body {
     font-size: 25px;
 }
 
+.about img {width: 100%;}
 
 .communication, .communication p {
     color: #444
