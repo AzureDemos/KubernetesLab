@@ -1,0 +1,548 @@
+{
+    "source": 2,
+    "revision": 8,
+    "description": null,
+    "createdBy": {
+        "displayName": "Your Name",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/Ae8d10f56-8e63-4ddf-b449-5717be488e1a/_apis/Identities/7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "_links": {
+            "avatar": {
+                "href": "https://replaced.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+            }
+        },
+        "id": "7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "uniqueName": "emailaddress@somewhere.com",
+        "imageUrl": "https://replaced.visualstudio.com/_api/_common/identityImage?id=7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "descriptor": "aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+    },
+    "createdOn": "2018-12-05T13:28:01.520Z",
+    "modifiedBy": {
+        "displayName": "Your Name",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/Ae8d10f56-8e63-4ddf-b449-5717be488e1a/_apis/Identities/7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "_links": {
+            "avatar": {
+                "href": "https://replaced.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+            }
+        },
+        "id": "7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "uniqueName": "emailaddress@somewhere.com",
+        "imageUrl": "https://replaced.visualstudio.com/_api/_common/identityImage?id=7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+        "descriptor": "aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+    },
+    "modifiedOn": "2019-02-01T09:54:49.700Z",
+    "isDeleted": false,
+    "variables": {
+        "registrylocation": {
+            "value": "your-registry"
+        }
+    },
+    "variableGroups": [],
+    "environments": [
+        {
+            "id": 1,
+            "name": "Dev-Stage",
+            "rank": 1,
+            "owner": {
+                "displayName": "Your Name",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Ae8d10f56-8e63-4ddf-b449-5717be488e1a/_apis/Identities/7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "_links": {
+                    "avatar": {
+                        "href": "https://replaced.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+                    }
+                },
+                "id": "7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "uniqueName": "emailaddress@somewhere.com",
+                "imageUrl": "https://replaced.visualstudio.com/_api/_common/identityImage?id=7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "descriptor": "aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+            },
+            "variables": {
+                "namespace": {
+                    "value": "dev"
+                }
+            },
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 1
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 2
+            },
+            "postDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 3
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [
+                {
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 88,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [
+                        {
+                            "environment": {},
+                            "taskId": "a8515ec8-7254-4ffd-912c-86772e2b5962",
+                            "version": "3.*",
+                            "name": "Replace tokens in **/*.yaml **/*.xml **/*.json",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "rootDirectory": "",
+                                "targetFiles": "**/*.yaml\n**/*.xml\n**/*.json",
+                                "encoding": "auto",
+                                "writeBOM": "true",
+                                "actionOnMissing": "warn",
+                                "keepToken": "false",
+                                "tokenPrefix": "#{",
+                                "tokenSuffix": "}#",
+                                "emptyValue": "(empty)",
+                                "escapeType": "none",
+                                "escapeChar": "",
+                                "charsToEscape": ""
+                            }
+                        },
+                        {
+                            "environment": {},
+                            "taskId": "cbc316a2-586f-4def-be79-488a1f503564",
+                            "version": "1.*",
+                            "name": "kubectl apply",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": null,
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "connectionType": "Azure Resource Manager",
+                                "kubernetesServiceEndpoint": "",
+                                "azureSubscriptionEndpoint": "",
+                                "azureResourceGroup": "stevedelete",
+                                "kubernetesCluster": "stevedelete-akscluster",
+                                "namespace": "$(namespace)",
+                                "command": "apply",
+                                "useConfigurationFile": "true",
+                                "configurationType": "configuration",
+                                "configuration": "$(System.DefaultWorkingDirectory)/_APIBuild/drop/deployment-api.yaml",
+                                "inline": "",
+                                "arguments": "",
+                                "secretType": "dockerRegistry",
+                                "secretArguments": "",
+                                "containerRegistryType": "Azure Container Registry",
+                                "dockerRegistryEndpoint": "",
+                                "azureSubscriptionEndpointForSecrets": "",
+                                "azureContainerRegistry": "",
+                                "secretName": "",
+                                "forceUpdate": "true",
+                                "configMapName": "",
+                                "forceUpdateConfigMap": "false",
+                                "useConfigMapFile": "false",
+                                "configMapFile": "",
+                                "configMapArguments": "",
+                                "versionOrLocation": "version",
+                                "versionSpec": "1.7.0",
+                                "checkLatest": "false",
+                                "specifyLocation": "",
+                                "cwd": "$(System.DefaultWorkingDirectory)",
+                                "outputFormat": "json"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [
+                {
+                    "name": "ReleaseStarted",
+                    "conditionType": 1,
+                    "value": ""
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 8,
+                "url": "https://replaced.vsrm.visualstudio.com/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/_apis/Release/releases/8",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {},
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://replaced.vsrm.visualstudio.com/_apis/public/Release/badge/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/1/1"
+        },
+        {
+            "id": 4,
+            "name": "Prod-Stage",
+            "rank": 2,
+            "owner": {
+                "displayName": "Your Name",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Ae8d10f56-8e63-4ddf-b449-5717be488e1a/_apis/Identities/7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "_links": {
+                    "avatar": {
+                        "href": "https://replaced.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+                    }
+                },
+                "id": "7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "uniqueName": "emailaddress@somewhere.com",
+                "imageUrl": "https://replaced.visualstudio.com/_api/_common/identityImage?id=7ce42d1a-4ede-6a21-8f8e-a5679c7581ea",
+                "descriptor": "aad.N2NlNDJkMWEtNGVkZS03YTIxLThmOGUtYTU2NzljNzU4MWVh"
+            },
+            "variables": {
+                "namespace": {
+                    "value": "prod"
+                }
+            },
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 10
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 11
+            },
+            "postDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 12
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [
+                {
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 88,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [
+                        {
+                            "environment": {},
+                            "taskId": "a8515ec8-7254-4ffd-912c-86772e2b5962",
+                            "version": "3.*",
+                            "name": "Replace tokens in **/*.yaml **/*.xml **/*.json",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "rootDirectory": "",
+                                "targetFiles": "**/*.yaml\n**/*.xml\n**/*.json",
+                                "encoding": "auto",
+                                "writeBOM": "true",
+                                "actionOnMissing": "warn",
+                                "keepToken": "false",
+                                "tokenPrefix": "#{",
+                                "tokenSuffix": "}#",
+                                "emptyValue": "(empty)",
+                                "escapeType": "none",
+                                "escapeChar": "",
+                                "charsToEscape": ""
+                            }
+                        },
+                        {
+                            "environment": {},
+                            "taskId": "cbc316a2-586f-4def-be79-488a1f503564",
+                            "version": "1.*",
+                            "name": "kubectl apply",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": null,
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "connectionType": "Azure Resource Manager",
+                                "kubernetesServiceEndpoint": "",
+                                "azureSubscriptionEndpoint": "",
+                                "azureResourceGroup": "stevedelete",
+                                "kubernetesCluster": "stevedelete-akscluster",
+                                "namespace": "$(namespace)",
+                                "command": "apply",
+                                "useConfigurationFile": "true",
+                                "configurationType": "configuration",
+                                "configuration": "$(System.DefaultWorkingDirectory)/_APIBuild/drop/deployment-api.yaml",
+                                "inline": "",
+                                "arguments": "",
+                                "secretType": "dockerRegistry",
+                                "secretArguments": "",
+                                "containerRegistryType": "Azure Container Registry",
+                                "dockerRegistryEndpoint": "",
+                                "azureSubscriptionEndpointForSecrets": "",
+                                "azureContainerRegistry": "",
+                                "secretName": "",
+                                "forceUpdate": "true",
+                                "configMapName": "",
+                                "forceUpdateConfigMap": "false",
+                                "useConfigMapFile": "false",
+                                "configMapFile": "",
+                                "configMapArguments": "",
+                                "versionOrLocation": "version",
+                                "versionSpec": "1.7.0",
+                                "checkLatest": "false",
+                                "specifyLocation": "",
+                                "cwd": "$(System.DefaultWorkingDirectory)",
+                                "outputFormat": "json"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [
+                {
+                    "name": "Dev-Stage",
+                    "conditionType": 2,
+                    "value": "4"
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 8,
+                "url": "https://replaced.vsrm.visualstudio.com/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/_apis/Release/releases/8",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {},
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://replaced.vsrm.visualstudio.com/_apis/public/Release/badge/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/1/4"
+        }
+    ],
+    "artifacts": [
+        {
+            "sourceId": "c2fadbec-c6ac-456c-9188-0aa7dbad31fc:24",
+            "type": "Build",
+            "alias": "_APIBuild",
+            "definitionReference": {
+                "artifactSourceDefinitionUrl": {
+                    "id": "https://replaced.visualstudio.com/_permalink/_build/index?collectionId=d355315d-0e30-4e0b-a86d-34c5a63b5087&projectId=c2fadbec-c6ac-456c-9188-0aa7dbad31fc&definitionId=24",
+                    "name": ""
+                },
+                "defaultVersionBranch": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionSpecific": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionTags": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionType": {
+                    "id": "selectDuringReleaseCreationType",
+                    "name": "Specify at the time of release creation"
+                },
+                "definition": {
+                    "id": "24",
+                    "name": "APIBuild"
+                },
+                "definitions": {
+                    "id": "",
+                    "name": ""
+                },
+                "IsMultiDefinitionType": {
+                    "id": "False",
+                    "name": "False"
+                },
+                "project": {
+                    "id": "c2fadbec-c6ac-456c-9188-0aa7dbad31fc",
+                    "name": "aksdec05"
+                },
+                "repository": {
+                    "id": "b4f5e58c-5b48-4c64-9c7e-f14fd8e9ad1e",
+                    "name": "aksdec05"
+                }
+            },
+            "isPrimary": true,
+            "isRetained": false
+        }
+    ],
+    "triggers": [
+        {
+            "artifactAlias": "_APIBuild",
+            "triggerConditions": [],
+            "triggerType": 1
+        }
+    ],
+    "releaseNameFormat": "Release-$(rev:r)",
+    "tags": [],
+    "pipelineProcess": {
+        "type": 1
+    },
+    "properties": {
+        "DefinitionCreationSource": {
+            "$type": "System.String",
+            "$value": "Other"
+        }
+    },
+    "id": 1,
+    "name": "APIRelease",
+    "path": "\\",
+    "projectReference": null,
+    "url": "https://replaced.vsrm.visualstudio.com/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/_apis/Release/definitions/1",
+    "_links": {
+        "self": {
+            "href": "https://replaced.vsrm.visualstudio.com/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/_apis/Release/definitions/1"
+        },
+        "web": {
+            "href": "https://replaced.visualstudio.com/c2fadbec-c6ac-456c-9188-0aa7dbad31fc/_release?definitionId=1"
+        }
+    }
+}
