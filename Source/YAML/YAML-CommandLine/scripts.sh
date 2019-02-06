@@ -36,6 +36,12 @@ kubectl apply -f ./Website/deployment-website.yaml --namespace=dev
 # Scale 
 kubectl scale deployment website-deployment --replicas=2 --namespace=dev
 
+
+
+------------------------------------- Dont Run this --------------------------------------
+
+
+
 # Clear everything in the dev namespace except the secrets
 kubectl delete daemonsets,replicasets,services,deployments,pods,configmaps,rc --namespace=dev --all
 
