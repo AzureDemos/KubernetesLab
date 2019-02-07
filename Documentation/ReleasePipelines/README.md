@@ -41,20 +41,12 @@ This will create Stage 1, you can rename this stage to whatever you like, for ex
 
 ![Enable CI for Release](images/enablecireleasebutton.png)
 
-## 4. Add Variables
 
-Add two variables
-
-* registrylocation - set the value to your ACR login server uri
-* namespace - set this to ```dev``` and change the scope to the name of your first stage
-
-![Add Variables](images/addregistryvariable.png)
-
-## 5. Click into the Tasks for Dev Stage (Stage 1)
+## 4. Click into the Tasks for Dev Stage (Stage 1)
 
 ![Edit Release Tasks](images/editreleasetasks.png)
 
-## 6. Add Replace Tokens Task
+## 5. Add Replace Tokens Task
 Click the plus icon next to "Agent Job" to add a new task and search for "replace"
 
 > This addon needs to have been installed - https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
@@ -63,7 +55,7 @@ In the List of tasks on the left, drag the Replace Tokens to the top
 
 ![Replace Tokens](images/replacetokenstask.png)
 
-### 6.1. Edit the replace tokens task
+### 5.1. Edit the replace tokens task
 
 Set the target files to equal
 ```
@@ -77,7 +69,18 @@ This task will find all files in our artifacts that are YAML, Json or XML and th
 
 ![Replace Tokens Config](images/replacetokens.png)
 
+## 6. Add Variables
+
+Click on the variables tab and add two variables
+
+* registrylocation - set the value to your ACR login server uri
+* namespace - set this to ```dev``` and change the scope to the name of your first stage
+
+![Add Variables](images/addregistryvariable.png)
+
 ## 7. Edit the Kubectl Apply Task
+
+Click on the Tasks table and edit the Kubectl Apply Task
 
 1. Choose your subscription from the Azure Subscription drop down menu
 2. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
@@ -87,15 +90,13 @@ This task will find all files in our artifacts that are YAML, Json or XML and th
 
 ![Kubernetes Apply Command](images/apiapplycommand.png)
 
-## 8. Save the changes made to your release 
-
-## 9. Clone this Stage
+## 8. Clone this Stage
 
 Click on the 'Pipeline' tab and hove over the dev stage. Two buttons should appear and once will say clone. Click this button. Then rename the new stage to 'Prod Stage'
 
 ![Clone](images/clonestage.png)
 
-### 9.1 Set any Scoped variables for the new stage
+### 8.1 Set any Scoped variables for the new stage
 
 You should now see that a second namespace variable has been added for the new Prod-Stage.
 Set this to ```prod```
@@ -104,39 +105,44 @@ Set this to ```prod```
 
 ![Clone](images/variable-secondstage.png)
 
-# 10. Save & Trigger a new Release
+# 9. Save & Trigger a new Release
+
+As this has not been triggered by a build, you will have to select which build to release in the popup. 
 
 ![Trigger Release](images/triggerrelease.png)
 
+Going forwarded, everytime a new build of the API is completed, this release pipeline will now deploy the API to both the dev and prod namespaces in you AKS cluster.
 
 # Create the Website Release
 
 The release for the website is a little more complex as the service has more configuration, which we will inject into the container using config maps and secrets. 
 
-## 1. Repeat Steps 1-5 of the API build
-This time choose the Website build as the artifact and name the release "Website Release"
+## 1. Repeat Steps 1-5 of the API build 
+Upto and including the replace tokens task, but this time choose the Website build as the artifact and name the release "Website Release"
 
 ## 2. Set the variable for this release
 
-1. Choose your ACR login server uri and set the api key and secret to whatever you like, as it is only for demo purposes. 
-2. Themes can be Default or Blue or Red
-3. Tick the lock button next to APIKey and Secret to hide the values
+> These keys need to exactly match the placeholders in the YAML templates, JSON and XML files in our build artifacts
+
+1. apiKey - set this to whatever you like and click the lock button to hide it
+2. apiSecret - set this to whatever you like and click the lock button to hide it
+3. apiname - set this to ```api``` as that is the name of the API service in the **deployment-api.yaml** template
+4. EnvironmentName - ```Kubernetes```
+5. namespace - ```dev``` - **change the scope to the name of your first stage**
+6. registrylocation - set the value to your ACR login server uri
+7. theme - choose from blue, red or default - **change the scope to the name of your first stage**
 
 ![Website Variables](images/websitevariables.png)
 
-## 3. Add Replace Tokens Task
+## 3. Deploy a Kubernetes Secret into the Cluster
 
-Do the same as in Step 6 of the API release and make sure that this task is dragged to the top of all tasks
-
-## 4. Deploy a Kubernetes Secret into the Cluster
-
-### 4.1. Add a new Kubernetes Task
+### 3.1. Add a new Kubernetes Task
 
 Add a new task to the stage by clicking the plus icon next to the Agent Job and search for Kubernetes
 
 ![Add Kubernetes Task](images/kubernetesTask.png)
 
-### 4.2. Delete the existing secret if it exists
+### 3.2. Delete the existing secret if it exists
 
 Edit the new task and set the following properties:
 
@@ -144,7 +150,7 @@ Edit the new task and set the following properties:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - delete
 7. Arguments - ```secret website-secret```
 8. Output format - keep this empty
@@ -152,7 +158,7 @@ Edit the new task and set the following properties:
 
 ![Delete Secret](images/deletesecret.png)
 
-### 4.3. Deploy a new Secret 
+### 3.3. Deploy a new Secret 
 
 Add a new task Kubernetes task and Edit it with the following:
 
@@ -160,24 +166,24 @@ Add a new task Kubernetes task and Edit it with the following:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - Create
 7. Arguments - ```secret generic website-secret --from-file=<Location of secret-website.json here>```
 
-> Tip - To find the location of secret-website.json check the box labelled use configuration files and then select the secret-website.json from the popup window. Copy and paste this into the arguments and then un-check the check box again
+> Tip - To find the location of **secret-website.json** check the box labelled use configuration files and then select the secret-website.json from the popup window. Copy and paste this into the arguments and then un-check the check box again. **Make sure clear the box with the file path before unchecking the check box again**
 
 ![Create Secret](images/createsecret.png)
 
 > Tip - to find the correct path of the secret-website.json file, check the tick box labelled "use configurations" box above and select the file, copy the location back into the arguments, then un-check the use configurationsbox
 
-## 5. Deploy the XML Config Map
+## 4. Deploy the XML Config Map
 
 
-### 5.1. Add a new Kubernetes Task
+### 4.1. Add a new Kubernetes Task
 
 Add a new task to the stage by clicking the plus icon next to the Agent Job and search for Kubernetes
 
-### 5.2. Delete the existing config map
+### 4.2. Delete the existing config map
 
 Edit the new task and set the following properties:
 
@@ -185,7 +191,7 @@ Edit the new task and set the following properties:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - delete
 7. Arguments -  ```configmap config-xml-website``
 8. Output format - keep this empty
@@ -193,7 +199,7 @@ Edit the new task and set the following properties:
 
 ![Delete XML ConfigMap](images/deletexmlconfigmap.png)
 
-### 5.3. Deploy a new XML Config Map 
+### 4.3. Deploy a new XML Config Map 
 
 Add a new task Kubernetes task and Edit it with the following:
 
@@ -201,7 +207,7 @@ Add a new task Kubernetes task and Edit it with the following:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - Create
 7. Arguments - ```configmap config-xml-website --from-file=<Location of configmap-website.xml here>```
 
@@ -209,7 +215,7 @@ Add a new task Kubernetes task and Edit it with the following:
 
 > Again use the "Use configuration files" check box to discover the location of the file
 
-## 6. Create Json Config Map
+## 5. Create Json Config Map
 
 Add a new task Kubernetes task and Edit it with the following:
 
@@ -217,13 +223,13 @@ Add a new task Kubernetes task and Edit it with the following:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - apply
 7. Check the "Use Configuration Files" box and select the configmap-website.yaml file
 
 ![create json config map](images/createjsonconfigmap.png)
 
-## 7. Deploy the Website
+## 6. Deploy the Website
 
 Add a new task Kubernetes task and Edit it with the following:
 
@@ -231,19 +237,35 @@ Add a new task Kubernetes task and Edit it with the following:
 2. Choose your subscription from the Azure Subscription drop down menu
 3. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 4. Choose your cluster from the Kubernetes cluster drop down menu
-5. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+5. Type ```$(namespace)``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
 6. Command - apply
 7. Check the "Use Configuration Files" box and select the deployment-website.yaml file
 
 ![Deploy website](images/deploywebsite.png)
 
-## 8. Trigger a new Release
+## 7. Clone this Stage
 
-Finally save the changes and click on the Release button to trigger a new release
+Click on the 'Pipeline' tab and hove over the dev stage. Two buttons should appear and once will say clone. Click this button. Then rename the new stage to 'Prod Stage'
+
+![Clone](images/clonestage.png)
+
+### 7.1 Set any Scoped variables for the new stage
+
+You should now see that a second namespace variable has been added for the new Prod-Stage.
+Set this to ```prod```
+
+> This means the Website will be deployed into the Dev namespace in the first stage of our deployment and the prod namespace in the second stage of our deployment. 
+
+![Clone](images/websitevariablestage2.png.png)
+
+
+## 8. Save & Trigger a new Release
+
+Finally save the changes and click on the Release button to trigger a new release. When triggering a release choose the latest build. 
 
 # Review
 
-After following these steps you should now have two release pipelines that are triggered from your builds. These pipelines replace values in your YAML build artifacts with variables in your release (Per Environment if required) and then deploy the config maps, secrets and services into the dev namespace of your cluster.
+After following these steps you should now have two release pipelines that are triggered from your builds. These pipelines replace values in your YAML build artifacts with variables in your release (Per Environment) and then deploy the config maps, secrets and services into the dev namespace of your cluster.
 
 
 # Next Steps 
