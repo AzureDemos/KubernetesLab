@@ -19,7 +19,7 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ### [4. Run the code locally in Visual Studio Code](Documentation/LookingIntoTheCode)
 
-### [5. Building YAML Templates](Documentation/BuilingYAMLTemplates)
+### [5. Building YAML Templates](Documentation/BuildingYAMLTemplates)
 
 ### [6. Working with the Kubernetes CLI](Documentation/WorkingWithTheKubernetesCLI)
 

@@ -25,6 +25,8 @@ This saves you the needing to push images to your registry, as we will cover tha
 
 ## Run the following commands in the Terminal window
 
+> Before starting make sure your terminal is running from the 'KubernetesLab\Source\YAML\YAML-CommandLine' folder
+
 Deploy the API to the dev namespace in your cluster
 
 ```kubectl apply -f ./API/deployment-api.yaml --namespace=dev```
