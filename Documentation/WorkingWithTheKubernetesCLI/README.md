@@ -23,7 +23,7 @@ In these next few steps we will use the Kubernetes CLI to deploy the Pods into A
 ![deployment diagram](images/deployingtheapps.png) 
 
 
-### The AzureDemosRepo on Docker Hub
+### Why are we using the AzureDemosRepo on Docker Hub
 
 To make this section simple, we have provided a set of YAML templates that can be applied to your cluster with default config values. These YAML templates are using container images in our public [Docker Hub repository](https://cloud.docker.com/u/azuredemosrepo/repository/list)
 
