@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: steveleonard/k8s-lab-website:latest
+        image: azuredemosrepo/aks-lab-website:latest
         ports:
         - containerPort: 80
         env:

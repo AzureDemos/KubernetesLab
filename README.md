@@ -19,15 +19,26 @@ Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build 
 
 ### [4. Run the code locally in Visual Studio Code](Documentation/LookingIntoTheCode)
 
-### [5. Create Build Pipelines](Documentation/BuildPipelines)
+### [5. Building YAML Templates](Documentation/BuilingYAMLTemplates)
 
-### [5. Create Release Pipelines](Documentation/ReleasePipelines)
+### [6. Working with the Kubernetes CLI](Documentation/WorkingWithTheKubernetesCLI)
 
-### [6. Make a code change by adding Application Insights](Documentation/AddApplicationInsights)
+### [7. Create Build Pipelines](Documentation/BuildPipelines)
 
-### [7. Monitoring the application with Log Analytics and Application Insights](Documentation/Monitoring)
+### [8. Create Release Pipelines](Documentation/ReleasePipelines)
+
+### [9. Make a code change by adding Application Insights](Documentation/AddApplicationInsights)
+
+### [10. Monitoring the application with Log Analytics and Application Insights](Documentation/Monitoring)
 
 
 ## Support
 
 Create GitHub issues and we'll respond as quickly as possible
+
+
+## Contacts on Twitter 
+
+[Steve Leonard](https://twitter.com/Steve_Leonard)
+
+[Jim Paine](https://twitter.com/jimpaine_io)
