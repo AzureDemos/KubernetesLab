@@ -4,7 +4,7 @@
 
 Open the project in Visual Studio Code and navigate to ```/Source/docker-compose.override.yml``` file in the Explorer window then right click and select 'Open in Terminal'
 
-> Make sure Docker is running already on your machine
+> Make sure [Docker](https://docs.docker.com/docker-for-windows/install/) is running already on your machine
 
 ![Open Terminal](images/runlocally.png)
 
