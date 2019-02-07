@@ -57,7 +57,7 @@ Create or update the website
 
 Now run the open dashboard command as shown in the portal
 
-![Get Credentials for Cluster](images/opendashboard.png) 
+![open dashboard](images/opendashboard.png) 
 
 A new window should open in your browser with the Kubernetes dashbaord. 
 
@@ -67,9 +67,9 @@ A new window should open in your browser with the Kubernetes dashbaord.
 4. Open the external enpoint for the website
 
 
-![Get Credentials for Cluster](images/viewwebsite.png) 
+![dashboard](images/viewwebsite.png) 
 
-![Get Credentials for Cluster](images/website.png) 
+![website](images/website.png) 
 
 
 ## Finally, clear everything in the dev namespace again
