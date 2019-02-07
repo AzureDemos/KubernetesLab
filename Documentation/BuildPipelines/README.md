@@ -18,7 +18,9 @@ Under the templates selection, choose Empty Pipeline.
 
 ## 3. Select Linux Agent Pool
 
-Choose Hosted Linux as the agent pool and rename your Pipeline to ```API-Build-Pipeline```
+Choose 'Hosted Ubuntu' or 'Linux' as the agent pool and rename your Pipeline to ```API-Build-Pipeline``` 
+
+> Dont have spaces in this name
 
 ![Linux Agent](images/linuxagentbuild.png)
 
@@ -85,7 +87,13 @@ Click on the "Tiggers" tab and check the box "Enable continous integration"
 
 ![Enable CI](images/enablebuildci.png)
 
-### 8. Trigger a new build
+## 8. Clear the build number format
+
+Under options make sure the build number format is empty
+
+![build number format](images/buildnumberformat.png)
+
+### 9. Trigger a new build
 
 To test everything is working, click the Save and Queue new build button to trigger a new build. 
 

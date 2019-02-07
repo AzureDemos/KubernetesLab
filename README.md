@@ -42,3 +42,5 @@ Create GitHub issues and we'll respond as quickly as possible
 [Steve Leonard](https://twitter.com/Steve_Leonard)
 
 [Jim Paine](https://twitter.com/jimpaine_io)
+
+[Mark Harrison](https://twitter.com/mrharrison)

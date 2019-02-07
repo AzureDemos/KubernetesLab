@@ -2,7 +2,12 @@
 
 # Release Pipelines
 
-Here we are going to create a release pipeline for the API and the Website which will be triggered from our build pipelines. We can set different config settings per environment.  
+Here we are going to create a release pipeline for the API and the Website which will be triggered from our build pipelines. 
+Essentially these pipelines are using deploying the YAML files from our build artifacts using the Kubernetes CLI as we did manually in the [Working with the Kubernetes CLI Stage](../WorkingWithTheKubernetesCLI)
+
+
+Other than the fact its all automated the main difference here, is that we will change the placeholder values in the configs and YAML templates with variables we set for each stage of the deplpyment (Dev, UAT, Pre-Prod, Prod, etc)
+
 
 ## First install the Replace Tokens addon if you do not already have it
 
@@ -13,9 +18,12 @@ https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
 
 ## 1. Create New Release and Choose Deploy to Kubernetes Cluster
 
+This will create Stage 1, you can rename this stage to whatever you like, for example Dev, UAT, Pre-Prod, etc
+
 ![kubernetes template](images/newapireleasepipeline.png)
 
  > Once created click on the little pen where it says "New release pipeline" and rename the release to "API Release"
+
 
 ## 2. Select Artifact
 
@@ -35,17 +43,21 @@ https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
 
 ## 4. Add Variables
 
-For the registry location set the value to your ACR login server uri
+Add two variables
+
+* registrylocation - set the value to your ACR login server uri
+* namespace - set this to ```dev``` and change the scope to the name of your first stage
 
 ![Add Variables](images/addregistryvariable.png)
 
-## 5. Click into the Tasks for Stage 1
+## 5. Click into the Tasks for Dev Stage (Stage 1)
 
 ![Edit Release Tasks](images/editreleasetasks.png)
 
 ## 6. Add Replace Tokens Task
 Click the plus icon next to "Agent Job" to add a new task and search for "replace"
-This addon needs to have been installed - https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
+
+> This addon needs to have been installed - https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
 
 In the List of tasks on the left, drag the Replace Tokens to the top
 
@@ -60,7 +72,7 @@ Set the target files to equal
 **/*.xml
 ```
 
-This task will find all files in our artifacts that are YAML, Json or XML and then replace any values that match a pattern ```#{somethingToBeReplaced}#``` with the variables we have set in Step 4
+This task will find all files in our artifacts that are YAML, Json or XML and then replace any values that match a pattern ```#{somethingToBeReplaced}#``` with the variables we have set 
 
 
 ![Replace Tokens Config](images/replacetokens.png)
@@ -70,16 +82,32 @@ This task will find all files in our artifacts that are YAML, Json or XML and th
 1. Choose your subscription from the Azure Subscription drop down menu
 2. Choose the Resource Group that your AKS cluster belongs to in the Resource Group drop down menu
 3. Choose your cluster from the Kubernetes cluster drop down menu
-4. Type ```dev``` into the Namespace (you should have already created a dev namespace during the creating your environment section)
+4. Type ```$(namespace)``` into the Namespace (this will be replaced by the variable for this stage which is 'dev'. You should have already have created a dev namespace during the creating your environment section)
 5. Tick the box labelled "use configuration files" and then select the deployment-api.yaml file
 
 ![Kubernetes Apply Command](images/apiapplycommand.png)
 
 ## 8. Save the changes made to your release 
 
-## 9. Trigger a new Release
+## 9. Clone this Stage
+
+Click on the 'Pipeline' tab and hove over the dev stage. Two buttons should appear and once will say clone. Click this button. Then rename the new stage to 'Prod Stage'
+
+![Clone](images/clonestage.png)
+
+### 9.1 Set any Scoped variables for the new stage
+
+You should now see that a second namespace variable has been added for the new Prod-Stage.
+Set this to ```prod```
+
+> This means the API will be deployed into the Dev namespace in the first stage of our deployment and the prod namespace in the second stage of our deployment. 
+
+![Clone](images/variable-secondstage.png)
+
+# 10. Save & Trigger a new Release
 
 ![Trigger Release](images/triggerrelease.png)
+
 
 # Create the Website Release
 
