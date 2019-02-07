@@ -1,16 +1,25 @@
 [![banner](../images/banner-lab.png)](../../README.md)
 
-# Setup Docker for Windows
+# Prerequisites
 
-Install Docker for Windows - link
+You will need a subscription to the **Azure Portal** then install the following:
 
-Enable Kubernetes
+* [Docker Desktop](https://docs.docker.com/docker-for-windows/install/)
+* [Visual Studio Code](https://code.visualstudio.com/docs?dv=win)
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+* Kubernetes CLI - run ```az aks install-cli``` in your command window once the Azure CLI is installed
+
+
+
+# Optionally, although not required for this lab. You can run Kubernetes on your local machine
 
 ![Enable Local Kubernetes](images/enablekubernetesondockerwindows.png)
 
+## Set the Kubernetes Context
+
 ![Switch Kubernetes Context](images/switchkubernetescontext.png)
 
-## Alternativly, via the CLI 
+### Alternativly, via the CLI 
 
 You can view all contexts
 ```
@@ -29,7 +38,7 @@ Switch your current context
 kubectl config use-context context-name-here
 ```
 
-# Viewing your local dashboard
+## Viewing your local dashboard
 
 Firstly make sure you have installed the dashboard UI
 
