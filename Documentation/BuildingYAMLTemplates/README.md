@@ -1,5 +1,14 @@
 [![banner](../images/banner-lab.png)](../../README.md)
 
+# YAML Templates
+
+## The API YAML
+
+![apiyaml](images/apiyaml.png) 
+
+## The Website YAML
+
+![website yaml](images/websiteyaml.png) 
 
 
 ## Volume Mounts, YAML, Config Maps and Secrets
