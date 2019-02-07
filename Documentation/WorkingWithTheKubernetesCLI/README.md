@@ -11,7 +11,7 @@ Locate the file under 'Source/YAML/YAML-CommandLine/scripts.sh' right click and 
 
 In the Azure Portal open the overview page of the AKS Service and click on 'View Kubernetes Dashboard' and run the get credentials command in your terminal window
 
-![Get Credentials for Cluster](images/aks-get-credentials.png) 
+![Get Credentials for Cluster](images/aks-getcredentials.png) 
 
 
 > Make sure you have previously run ```az login``` and are connected to the correct subscription. If not run ```az account set --subscription {your-subscription-id-here}```
@@ -69,7 +69,7 @@ A new window should open in your browser with the Kubernetes dashbaord.
 
 ![dashboard](images/viewwebsite.png) 
 
-![website](images/website.png) 
+![website](images/runningwebsite.png) 
 
 
 ## Finally, clear everything in the dev namespace again
