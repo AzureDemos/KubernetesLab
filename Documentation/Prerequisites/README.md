@@ -2,57 +2,16 @@
 
 # Prerequisites
 
-You will need a subscription to the **Azure Portal** then install the following:
-
+* You will need an Azure Subscription
+  *  If using an existing subscription you will need rights to create a service principal in the Azure AD tenant you use. This is a pre-req to deploying AKS.
+  * If you activate an Azure Pass do not use your company/work email address
 * [Docker Desktop](https://docs.docker.com/docker-for-windows/install/)
 * [Visual Studio Code](https://code.visualstudio.com/docs?dv=win)
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
-* Kubernetes CLI - run ```az aks install-cli``` in your command window once the Azure CLI is installed
+* Kubernetes CLI 
+  * If you've installed the Azure CLI already just run ```az aks install-cli``` in your command window
 
 
-
-# Optionally, although not required for this lab. You can run Kubernetes on your local machine
-
-![Enable Local Kubernetes](images/enablekubernetesondockerwindows.png)
-
-## Set the Kubernetes Context
-
-![Switch Kubernetes Context](images/switchkubernetescontext.png)
-
-### Alternativly, via the CLI 
-
-You can view all contexts
-```
-kubectl config view
-```
-
-View you current context
-
-```
-kubectl config current-context  
-```
-
-Switch your current context
-
-```
-kubectl config use-context context-name-here
-```
-
-## Viewing your local dashboard
-
-Firstly make sure you have installed the dashboard UI
-
-```
-kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-```
-
-Now setup a proxy
-
-```
-kubectl proxy
-```
-
-Your dashboard will be made available here: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
 # Next Steps 
 

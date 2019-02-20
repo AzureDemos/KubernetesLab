@@ -91,4 +91,5 @@ It then call thes API and builds a Model to display the config to the user and t
 
 # Next Steps
 
-### [Building YAML Templates](../BuilingYAMLTemplates)
+### [Building YAML Templates](../BuildingYAMLTemplates)
+
