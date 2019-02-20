@@ -69,6 +69,23 @@ This script can take upto half an hour to run, but once its finished you should 
 
 The cluster will have 'dev' and 'prod' namesapces installed along with a secret that enables it to pull images down from your private Azure Container Registry. 
 
+
+# Review
+
+Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authentication required to pull images from your private ACR. 
+
+
+# Next Steps 
+
+### [Looking into the code](../LookingIntoTheCode)
+
+
+
+
+# Additional Deployment Options
+
+> This is not required for the lab
+
 ## Detailed Step by Step Instructions
 
 Alternatively, if you have more time and want to understand how we create each component, then you can follow the more detail step by step instructions for the Azure CLI or Terraform. 
@@ -91,11 +108,3 @@ az account set --subscription {subscription_guid}
 
 ### [2. Using Terraform](Terraform)
 
-# Review
-
-Now you should have successfully created a Kubernetes cluster (AKS) and an Azure Container Registry (ACR) to store your Docker images. You have also given AKS the authentication required to pull images from your private ACR. 
-
-
-# Next Steps 
-
-### [Looking into the code](../LookingIntoTheCode)
