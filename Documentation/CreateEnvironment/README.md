@@ -86,7 +86,7 @@ Now you should have successfully created a Kubernetes cluster (AKS) and an Azure
 
 # Additional Deployment Options
 
-> This is not required for the lab
+> This section is **NOT REQUIRED** for the lab
 
 ## Detailed Step by Step Instructions
 
