@@ -32,13 +32,15 @@ namespace AKSWebsite.Controllers
             var model = new HomePageModel()
             {
                 Configuration = this.Config,
-                APILocation = this.ServiceLocator.GetServiceUri(Config["API:Name"]),
+                EnvAPILocation = new ServiceLocator(Config).GetServiceUri(Config["API:Name"]),// were not using the IOC here because we want to ignore the congig and show both ways or resolving the location
+                DNSAPILocation = new DNSServiceLocator().GetServiceUri(Config["API:Name"]),
                 APIResponse = apiResponse,
-                APINameFormmatted = "CONFIG_NOT_SET"
+                APINameFormmatted = "CONFIG_NOT_SET",
+                APIName = Config["API:Name"]
             };
             if (!string.IsNullOrWhiteSpace(Config["API:Name"]))
                 model.APINameFormmatted = Config["API:Name"].ToUpper().Replace("-", "_");
-
+            
 
             return View(model);
         }

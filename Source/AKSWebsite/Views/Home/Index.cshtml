@@ -85,8 +85,14 @@
                     <td>Config Map</td>
                     <td>~/<strong>{EnvironmentName}</strong>/JSON</td>
                     <td>configmap-frontend.json  </td>
-                    <td>API:Name</td>
-                    <td><strong>@Model.Configuration["API:Name"]</strong></td>
+                    <td>Routing / API:Name</td>
+                    <td>
+                        <strong>
+                         @Model.Configuration["Routing"]
+                        <br />
+                        @Model.Configuration["API:Name"]
+                        </strong>
+                    </td>
                     <td><i class="icon fas fa-check-circle"></i></td>
                 </tr>
                 <tr>
@@ -122,13 +128,15 @@
             <br />
             <div class="alert alert-info communication" role="alert">
                 <h1 class="alert-heading">Communicating with other services</h1>
+
+                <h2>Via Environment Variables</h2>
                 <p>
                     Kubernetes adds Environment variables to a Pod for service discovery in the format <code>{SERVICENAME}_SERVICE_HOST</code> and <code>{SERVICENAME}_SERVICE_PORT</code> where the service name is upper-cased and dashes are converted to underscores.
                 </p>
                 <p>
                     Our API name is provided to us in the <strong>configmap-frontend.json</strong> and is currently set too <i>@Model.Configuration["API:Name"]</i>
                 </p>
-                <p>Therefore Kubernetes injects the following environment variables into our Pod <code>@(Model.APINameFormmatted)_SERVICE_HOST</code> + <code>@(Model.APINameFormmatted)_SERVICE_PORT</code> which resolve to: <strong>@Model.APILocation</strong></p>
+                <p>Therefore Kubernetes injects the following environment variables into our Pod <code>@(Model.APINameFormmatted)_SERVICE_HOST</code> + <code>@(Model.APINameFormmatted)_SERVICE_PORT</code> which resolve to: <strong>@Model.EnvAPILocation</strong></p>
 
                 <hr />
 
@@ -147,7 +155,16 @@
                     </div>
                 </div>
 
+                <h2>Via DNS</h2>
+                <p>Kubernetes also has its own DNS server that can resolve via the service name and namespace. For example <strong>http://@(Model.APIName)</strong> </p>
 
+                <h2>Switching between the two options</h3>
+                <p>
+                   In our application the choice for which method to use can be either <strong>env</strong> or <strong>dns</strong> and is provided to us in the <strong>configmap-frontend.json</strong> key called <strong>Routing</strong>. This is currently set too <i>@Model.Configuration["Routing"]</i>
+                </p>
+                <p>
+                    
+                </p>
                 <hr>
                 <p class="api-response blink">@Model.APIResponse</p>
             </div>

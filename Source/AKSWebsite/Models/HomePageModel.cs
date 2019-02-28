@@ -10,7 +10,10 @@ namespace AKSWebsite.Models
     {
         public IConfiguration Configuration { get; set; }
         public string APIResponse { get; set; }
-        public string APILocation { get; set; }
+        public string EnvAPILocation { get; set; }
+        public string DNSAPILocation { get; set; }
         public string APINameFormmatted { get; set; }
+
+        public string APIName { get; set; }
     }
 }
