@@ -46,7 +46,7 @@ echo "Service principal password: $SP_PASSWD"
  
 # Create Cluster
 AKS_Name="${RG_NAME}-akscluster"
-az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable-addons http_application_routing --generate-ssh-keys 
+az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable-addons http_application_routing --generate-ssh-keys --kubernetes-version 1.12.4
  
 # Connect to cluster
 az aks get-credentials --resource-group $RG_NAME --name $AKS_Name
