@@ -41,7 +41,11 @@ namespace AKSWebsite
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
-            services.AddTransient<IServiceLocator, ServiceLocator>();
+            if (String.IsNullOrWhiteSpace(Configuration["Routing"]) || Configuration["Routing"].ToLower() == "env") 
+                services.AddTransient<IServiceLocator, ServiceLocator>();
+            else
+                services.AddTransient<IServiceLocator, DNSServiceLocator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

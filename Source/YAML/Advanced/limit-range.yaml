@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-cpu-limit-range
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 1G
+    limits.cpu: "2"
+    limits.memory: 2G
+
+
+
+

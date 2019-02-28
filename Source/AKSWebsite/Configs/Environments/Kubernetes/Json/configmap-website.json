@@ -1,4 +1,5 @@
 {
+  "Routing": "DNS",
   "API": {
     "Name": "S-AKSAPI"
   }
