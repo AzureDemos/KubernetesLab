@@ -19,12 +19,12 @@ namespace AKSWebsite.Services
         }
 
         public async Task<string> CallAPI()
-        {
-            var serviceName = this.config["API:Name"];
-            var baseURI = this.serviceLocator.GetServiceUri(serviceName);
-            var resourceRoot = "/api/values";
-            try
+        {   try
             {
+                var serviceName = this.config["API:Name"];
+                var baseURI = this.serviceLocator.GetServiceUri(serviceName);
+                var resourceRoot = "/api/values";
+           
                 using (HttpClient client = new HttpClient())
                 using (HttpResponseMessage res = await client.GetAsync(baseURI + resourceRoot))
                 using (HttpContent content = res.Content)
