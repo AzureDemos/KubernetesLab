@@ -23,13 +23,16 @@ namespace AKSWebsite.Services
             {
                 var serviceName = this.config["API:Name"];
                 var baseURI = this.serviceLocator.GetServiceUri(serviceName);
-                var resourceRoot = "/api/values";
+                var resourceRoot = "/api/status";
            
                 using (HttpClient client = new HttpClient())
                 using (HttpResponseMessage res = await client.GetAsync(baseURI + resourceRoot))
                 using (HttpContent content = res.Content)
                 {
                     string data = await content.ReadAsStringAsync();
+                    if (String.IsNullOrWhiteSpace(data)){
+                        data = $"The response from {baseURI + resourceRoot} was empty";
+                    }
                     return data;
                 }
             }
