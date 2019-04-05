@@ -6,6 +6,7 @@ using AKSWebsite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,11 @@ namespace AKSWebsite
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
@@ -51,6 +57,7 @@ namespace AKSWebsite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders();
             app.UseDeveloperExceptionPage(); //We are leaving this on for this demo to help trace any errors
             app.UseStaticFiles();
             app.UseCookiePolicy();
