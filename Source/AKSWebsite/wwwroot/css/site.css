@@ -36,6 +36,10 @@ body {
     }
 }
 
+.hide {
+    display: none;
+}
+
 .icon {
     font-size: 25px;
 }

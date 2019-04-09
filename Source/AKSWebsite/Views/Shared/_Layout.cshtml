@@ -46,11 +46,14 @@
     -->
     @RenderBody()
 
-    @foreach(var x in Context.Request.Headers)
-    {
-       @Html.Raw($"header {x.Key} - val:  {x.Value}")
-        <br />
-    }
+    <div class="hide">
+        <!-- Displaying all headers for Ingress Testing -->
+        @foreach(var x in Context.Request.Headers)
+        {
+        @Html.Raw($"header {x.Key} - val:  {x.Value}")
+            <br />
+        }
+    </div>
     <div class="container body-content">
         <hr />
         <footer>

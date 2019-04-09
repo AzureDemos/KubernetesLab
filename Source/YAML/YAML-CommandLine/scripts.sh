@@ -3,6 +3,12 @@
 #****************************************************************************
 
 # Get Credentials for the cluster in Azure
+
+az aks get-credentials --name <CLUSTER_NAME> --resource-group <RESOURCE_GROUP_NAME>
+
+# Browse the Dashboard
+az aks browse --name <CLUSTER_NAME> --resource-group <RESOURCE_GROUP_NAME>
+
 # Get connection details from the portal
 
 #************************ Deploying the API *********************************
