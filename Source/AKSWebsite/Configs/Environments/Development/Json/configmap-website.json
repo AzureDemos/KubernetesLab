@@ -1,6 +1,6 @@
 {
   "Routing": "dns",
   "API": {
-    "Name": "Demo-AKS-API"
+    "Name": "api"
   }
 }

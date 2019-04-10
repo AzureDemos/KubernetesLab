@@ -6,7 +6,7 @@
     <ProjectGuid>7264dc1d-7226-44b6-8d97-bc2a80f5b0cb</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>akswebsite</DockerServiceName>
+    <DockerServiceName>website</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
