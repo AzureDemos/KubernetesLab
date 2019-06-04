@@ -141,6 +141,7 @@
                     @foreach (var response in Model.APIResponse.Responses.AsEnumerable().Reverse().ToList())
                     {
                         <h4>@response.Response</h4>
+                        <p>Host: @response.HostName</p>
                         <p>@response.CacheData</p>
                         <table class="table table-condensed">
                             <tr>

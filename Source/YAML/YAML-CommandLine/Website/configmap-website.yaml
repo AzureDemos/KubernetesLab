@@ -8,12 +8,13 @@ metadata:
 data:
   configmap-website.json: |
     {
-    "Routing": "DNS",
-    "API": {
-        "Name": "api"
+      "API": {
+        "Name": "middle-api"
+      },
+      "App": {
+        "Theme":  "Default"
       }
     }
-
 
 
 

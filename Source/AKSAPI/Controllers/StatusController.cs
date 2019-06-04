@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AKSAPI.Models;
@@ -63,6 +64,9 @@ namespace AKSAPI.Controllers
                 thisResponse.CacheData = $"{cacheItems.Value} Items in Cache, totalling {Cache.Get("MegaBytesCount")}mb";
             else
                 thisResponse.CacheData = "Cache is empty";
+
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+            thisResponse.HostName = ipHostInfo.HostName;
 
             foreach (var x in this.ContextAccessor.HttpContext.Request.Headers)
                 thisResponse.Headers.Add(x.Key, x.Value);

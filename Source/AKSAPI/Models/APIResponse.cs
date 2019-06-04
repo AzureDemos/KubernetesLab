@@ -9,6 +9,7 @@ namespace AKSAPI.Models
     {
         public string Response { get; set; }
         public string CacheData { get; set; }
+        public string HostName { get; set; }
         public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
     }
 
