@@ -66,7 +66,7 @@ namespace AKSAPI.Controllers
                 thisResponse.CacheData = "Cache is empty";
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            thisResponse.HostName = $"{ipHostInfo.HostName} - {String.Join(',', ipHostInfo.Aliases)}";
+            thisResponse.HostName = $"{ipHostInfo.HostName}";
     
 
             foreach (var x in this.ContextAccessor.HttpContext.Request.Headers)

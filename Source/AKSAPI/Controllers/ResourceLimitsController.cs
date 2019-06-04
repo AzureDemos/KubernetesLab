@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using AKSAPI.Content;
 using System.Reflection;
 using System.IO;
+using System.Net;
 
 namespace AKSAPI.Controllers
 {
@@ -46,7 +47,9 @@ namespace AKSAPI.Controllers
             var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
             Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000, cacheEntryOptions);
 
-            return Ok($"Roughly 20 large items added to in memory Cache");
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+
+            return Ok($"Roughly 20 large items added to {ipHostInfo.HostName} Cache. Now contains cacheCount items");
         }
 
      
