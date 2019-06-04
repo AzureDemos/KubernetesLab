@@ -30,10 +30,10 @@ namespace AKSAPI.Controllers
             using (var stream = assembly.GetManifestResourceStream($"AKSAPI.Content.LargeTextFile.txt"))
             using (var reader = new StreamReader(stream))
                 content = reader.ReadToEnd();
- 
-           
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
             for (int i = 0; i < 20; i++) 
-                Cache.Set(Guid.NewGuid().ToString(), Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
+                Cache.Set(Guid.NewGuid().ToString(), Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString(), cacheEntryOptions);
 
             
             int? cacheCount = (int?)Cache.Get("ItemsCount");
@@ -42,9 +42,9 @@ namespace AKSAPI.Controllers
             else
                 cacheCount = 50;
 
-            Cache.Set("ItemsCount", cacheCount);
+            Cache.Set("ItemsCount", cacheCount, cacheEntryOptions);
             var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
-            Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000);
+            Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000, cacheEntryOptions);
 
             return Ok($"Roughly 20 large items added to in memory Cache");
         }
