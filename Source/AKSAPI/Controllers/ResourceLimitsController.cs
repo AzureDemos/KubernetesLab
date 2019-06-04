@@ -32,7 +32,7 @@ namespace AKSAPI.Controllers
                 content = reader.ReadToEnd();
  
            
-            for (int i = 0; i < 50; i++) //300mb
+            for (int i = 0; i < 20; i++) 
                 Cache.Set(Guid.NewGuid().ToString(), Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
 
             
@@ -46,7 +46,7 @@ namespace AKSAPI.Controllers
             var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
             Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000);
 
-            return Ok($"Roughly 300mb added to in memory Cache");
+            return Ok($"Roughly 20 large items added to in memory Cache");
         }
 
      
