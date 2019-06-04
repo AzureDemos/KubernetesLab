@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using System.Net
 @model HomePageModel
 <div class="container body-content">
     <img src="https://github.com/AzureDemos/KubernetesLab/raw/master/Documentation/images/banner-lab.png" class="banner" />
@@ -16,8 +17,10 @@
                 When deploying the application into Kubernetes we can use <strong>Config Maps</strong> and <strong>Secrets</strong> to inject these files into the folder the app it reading.
             </p>
             <blockquote>
-                <p>It's important to understand here, that the container which will eventually be stored in a Container Registry <strong>does not contain the folder named Kubernetes or any of the config files</strong>. 
-                The Kubernetes folder and the JSON and XML files are mounted into the contain by Kubernetes and therefore, we can change these per environment in our CI/CD pipelines without re-building the container. </p>
+                <p>
+                    It's important to understand here, that the container which will eventually be stored in a Container Registry <strong>does not contain the folder named Kubernetes or any of the config files</strong>.
+                    The Kubernetes folder and the JSON and XML files are mounted into the contain by Kubernetes and therefore, we can change these per environment in our CI/CD pipelines without re-building the container.
+                </p>
             </blockquote>
             <div class="col-md-6">
                 <h3>Development Configs</h3>
@@ -85,25 +88,16 @@
                     <td>Config Map</td>
                     <td>~/<strong>{EnvironmentName}</strong>/JSON</td>
                     <td>configmap-frontend.json  </td>
-                    <td>Routing / API:Name</td>
+                    <td>API:Name <br />App:Theme</td>
                     <td>
                         <strong>
-                         @Model.Configuration["Routing"]
-                        <br />
-                        @Model.Configuration["API:Name"]
+                            @Model.Configuration["API:Name"]
+                            <br/>
+                            @Model.Configuration["App:Theme"]
                         </strong>
                     </td>
                     <td><i class="icon fas fa-check-circle"></i></td>
                 </tr>
-                <tr>
-                    <td>Config Map</td>
-                    <td>~/<strong>{EnvironmentName}</strong>/XML</td>
-                    <td>configmap-frontend.xml  </td>
-                    <td>App:Theme</td>
-                    <td><strong>@Model.Configuration["App:Theme"]</strong></td>
-                    <td><i class="icon fas fa-check-circle"></i></td>
-                </tr>
-
                 <tr>
                     <td>Secret</td>
                     <td>~/<strong>{EnvironmentName}</strong>/Secrets</td>
@@ -127,47 +121,67 @@
         <div class="col-md-12">
             <br />
             <div class="alert alert-info communication" role="alert">
-                <h1 class="alert-heading">Communicating with other services</h1>
+                <h1 class="alert-heading">Communicating with other services via DNS</h1>
 
-                <h2>Via Environment Variables</h2>
                 <p>
-                    Kubernetes adds Environment variables to a Pod for service discovery in the format <code>{SERVICENAME}_SERVICE_HOST</code> and <code>{SERVICENAME}_SERVICE_PORT</code> where the service name is upper-cased and dashes are converted to underscores.
+                    Kubernetes has its own DNS server that can resolve via the service name and namespace.
+                    Docker compose also has the same functionality, so we make sure to name the API service in either our Kubernetes YAML files or our Docker Compose
+                    file and then tell the Website what the name of that serivice is through config.
                 </p>
                 <p>
-                    Our API name is provided to us in the <strong>configmap-frontend.json</strong> and is currently set too <i>@Model.Configuration["API:Name"]</i>
-                </p>
-                <p>Therefore Kubernetes injects the following environment variables into our Pod <code>@(Model.APINameFormmatted)_SERVICE_HOST</code> + <code>@(Model.APINameFormmatted)_SERVICE_PORT</code> which resolve to: <strong>@Model.EnvAPILocation</strong></p>
-
-                <hr />
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Setting Environment Variables with Docker</h4>
-                        <small>
-                            Although Kubernetes will inject the environment variables automatically we can use this same method for docker compose as shown below or even within app settings of a standard web app
-                        </small>
-                        <img class="img-rounded img-responsive" src="~/images/api-environment-variables.png" title="environment variables" />
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Service Locator Interface</h4>
-                        <small> To keep the code clean and adaptable, the service locator is an interface. This means the method for retrieving the API location is not tied to Kubernetes in anyway</small>
-                        <img class="img-rounded img-responsive" src="~/images/service-locator.png" title="environment variables" />
-                    </div>
-                </div>
-
-                <h2>Via DNS</h2>
-                <p>Kubernetes also has its own DNS server that can resolve via the service name and namespace. For example <strong>http://@(Model.APIName)</strong> </p>
-
-                <h2>Switching between the two options</h3>
-                <p>
-                   In our application the choice for which method to use can be either <strong>env</strong> or <strong>dns</strong> and is provided to us in the <strong>configmap-frontend.json</strong> key called <strong>Routing</strong>. This is currently set too <i>@Model.Configuration["Routing"]</i>
-                </p>
-                <p>
-                    
+                    We named the api in the <strong>configmap-frontend.json</strong> as shown in the configs above.
+                    Therefore we know the location of the api is: <strong>http://@(Model.APIName)</strong>
                 </p>
                 <hr>
-                <p class="api-response blink">@Model.APIResponse</p>
+                <div class="col-md-6">
+                    <p class="api-response ">API Responses</p>
+                    @{
+                        int iteration = 1; 
+                    }
+                    @foreach (var response in Model.APIResponse.Responses.AsEnumerable().Reverse().ToList())
+                    {
+                        <h4>@response.Response</h4>
+                        <p>@response.CacheData</p>
+                        <table class="table table-condensed">
+                            <tr>
+                                <th>Header Key</th>
+                                <th>Header Value</th>
+                            </tr>
+                            @foreach (var header in response.Headers)
+                            {
+                                <tr>
+                                    <td>@header.Key</td>
+                                    <td>@header.Value</td>
+                                </tr>
+                            }
+                        </table>
+                        if (iteration < Model.APIResponse.Responses.Count)
+                        {
+                            <i class="icon fas fa-arrow-circle-down downstream"></i>
+                            iteration++;
+                        }
+
+                        <br /> <br />
+                    }
+                </div>
+                <div class="col-md-6">
+                  
+                    <img src="~/images/docker-compose.png" />
+                </div>
+                <div class="clearfix"></div>
+             
+
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <a href="/home/spike?mode=cpu" class="btn btn-danger btn-lg btn-block">Purposely Cause API Memory Spike</a>
+
+           
+                <p>@TempData["SpikeResponse"]</p>
+            
         </div>
     </div>
 </div>

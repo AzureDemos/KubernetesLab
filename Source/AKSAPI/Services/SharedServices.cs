@@ -10,17 +10,18 @@ namespace AKSAPI.Services
     public static class SharedServices
     {
 
-        public static void SpikeCPU(object cpuUsage)
+        public static void SpikeCPU(object token)
         {
+            int cpuUsage = 40;
             Parallel.For(0, 1, new Action<int>((int i) =>
             {
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
-                while (true)
+                while (!((CancellationToken)token).IsCancellationRequested)
                 {
-                    if (watch.ElapsedMilliseconds > (int)cpuUsage)
+                    if (watch.ElapsedMilliseconds > cpuUsage)
                     {
-                        Thread.Sleep(100 - (int)cpuUsage);
+                        Thread.Sleep(100 - cpuUsage);
                         watch.Reset();
                         watch.Start();
                     }
@@ -28,6 +29,7 @@ namespace AKSAPI.Services
             }));
 
         }
+
     }
 
 }

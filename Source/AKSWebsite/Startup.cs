@@ -20,9 +20,8 @@ namespace AKSWebsite
             var builder = new ConfigurationBuilder()
              .SetBasePath(env.ContentRootPath)
              .AddJsonFile("Configs/appsettings.json", optional: false, reloadOnChange: true)
-             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true)
-             .AddXmlFile($"Configs/Environments/{env.EnvironmentName}/XML/configmap-website.xml", optional: true, reloadOnChange: true)
-             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true)
+             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true, reloadOnChange: true)
              .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -48,10 +47,7 @@ namespace AKSWebsite
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
-            if (String.IsNullOrWhiteSpace(Configuration["Routing"]) || Configuration["Routing"].ToLower() == "env") 
-                services.AddTransient<IServiceLocator, ServiceLocator>();
-            else
-                services.AddTransient<IServiceLocator, DNSServiceLocator>();
+            services.AddTransient<IServiceLocator, DNSServiceLocator>();
 
         }
 

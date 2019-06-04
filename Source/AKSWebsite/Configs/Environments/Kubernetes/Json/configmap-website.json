@@ -1,6 +1,8 @@
 {
-  "Routing": "DNS",
   "API": {
-    "Name": "S-AKSAPI"
+    "Name": "middle-api"
+  },
+  "App": {
+    "Theme": "Default"
   }
 }

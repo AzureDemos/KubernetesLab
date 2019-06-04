@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AKSWebsite.Models;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,27 +20,53 @@ namespace AKSWebsite.Services
             this.serviceLocator = serviceLocator;
         }
 
-        public async Task<string> CallAPI()
+        private string GetURI(string resourceRoot)
+        {
+            var serviceName = this.config["API:Name"];
+            var baseURI = this.serviceLocator.GetServiceUri(serviceName);
+            var root = baseURI + resourceRoot;
+            return root;
+        }
+
+        public async Task<APIResponse> CallAPI()
         {   try
             {
-                var serviceName = this.config["API:Name"];
-                var baseURI = this.serviceLocator.GetServiceUri(serviceName);
-                var resourceRoot = "/api/status";
-           
+                var uri = this.GetURI("/api/status");
                 using (HttpClient client = new HttpClient())
-                using (HttpResponseMessage res = await client.GetAsync(baseURI + resourceRoot))
+                using (HttpResponseMessage res = await client.GetAsync(uri))
                 using (HttpContent content = res.Content)
                 {
                     string data = await content.ReadAsStringAsync();
-                    if (String.IsNullOrWhiteSpace(data)){
-                        data = $"The response from {baseURI + resourceRoot} was empty";
-                    }
+                    return JsonConvert.DeserializeObject<APIResponse>(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                APIResponse response = new APIResponse();
+                response.Responses.Add(new APIResponseDetails()
+                {
+                    Response = $"An error occurred calling the api - {ex.Message}"
+                });
+                return response;
+            }
+        }
+
+        public async Task<string> RequestAPIMemorySpike()
+        {
+            try
+            {
+                var uri = this.GetURI("/api/TestResourceLimits");
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage res = await client.GetAsync(uri))
+                using (HttpContent content = res.Content)
+                {
+                    string data = await content.ReadAsStringAsync();
                     return data;
                 }
             }
             catch (Exception ex)
             {
-                return $"An error occurred calling the backend api {ex.Message}";
+                return $"Error Occurred Calling API - {ex.Message}";
             }
         }
     }

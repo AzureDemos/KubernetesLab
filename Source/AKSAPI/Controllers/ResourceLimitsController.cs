@@ -4,58 +4,52 @@ using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using AKSAPI.Services;
+using Microsoft.AspNetCore.Hosting;
+using AKSAPI.Content;
+using System.Reflection;
+using System.IO;
 
 namespace AKSAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceLimitsController : ControllerBase
+    public class TestResourceLimitsController : ControllerBase
     {
-        public IMemoryCache _Cache { get; }
-
-        public ResourceLimitsController(IMemoryCache _cache)
+        public IMemoryCache Cache { get; }
+        public TestResourceLimitsController(IMemoryCache _cache)
         {
-            _Cache = _cache;
+            Cache = _cache;
         }
 
-        // GET api/values
+        // GET api/TestResourceLimits
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return "This response has come from the backend API";
+            var assembly = typeof(ContentPointer).GetTypeInfo().Assembly;
+            string content = "";
+            using (var stream = assembly.GetManifestResourceStream($"AKSAPI.Content.LargeTextFile.txt"))
+            using (var reader = new StreamReader(stream))
+                content = reader.ReadToEnd();
+ 
+           
+            for (int i = 0; i < 50; i++) //300mb
+                Cache.Set(Guid.NewGuid().ToString(), Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
+
+            
+            int? cacheCount = (int?)Cache.Get("ItemsCount");
+            if (cacheCount.HasValue) 
+                cacheCount += 50;
+            else
+                cacheCount = 50;
+
+            Cache.Set("ItemsCount", cacheCount);
+            var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
+            Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000);
+
+            return Ok($"Roughly 300mb added to in memory Cache");
         }
 
-        // GET api/ResourceLimits/SpikeCPU
-        [HttpGet]
-        public ActionResult<string> SpikeCPU(int cpuUsage = 40, int minutes = 1)
-        {
-            List<Thread> threads = new List<Thread>();
-            for (int i = 0; i < Environment.ProcessorCount; i++)
-            {
-                Thread t = new Thread(new ParameterizedThreadStart(SharedServices.SpikeCPU));
-                t.Start(cpuUsage);
-                threads.Add(t);
-            }
-            Thread.Sleep(minutes * 60000);
-            foreach (var t in threads)
-            {
-                t.Abort();
-            }
-            return "ss";
-        }
-
-       //[HttpGet]
-       //public ActionResult SpikeMemory()
-       //{
-       //    var txt = System.IO.File.ReadAllText(@"..\configs\largetextfile.txt");
-       //    IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-       //    for (int i = 0; i < 2000000; i++)
-       //    {
-       //        object result = cache.Set(Guid.NewGuid().ToString(), txt);
-       //    }
-       //    return Ok("Cached large amount of data");
-       //}
-
+     
     }
 }
 

@@ -1,6 +1,8 @@
 {
-  "Routing": "dns",
   "API": {
-    "Name": "api"
+    "Name": "middle-api"
+  },
+  "App": {
+    "Theme":  "Default"
   }
 }

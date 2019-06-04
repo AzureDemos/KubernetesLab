@@ -27,6 +27,9 @@ kubectl delete secret website-secret --namespace=dev
 # Create secret from file
 kubectl create secret generic website-secret --from-file=./Website/secret-website.json --namespace=dev
 
+
+kubectl create secret generic sss --from-file=./Website/secret-website.json --dry-run -o json | kubectl apply -f - --namespace=dev
+
 # Create / update config map (inline json)
 kubectl apply -f ./Website/configmap-website.yaml --namespace=dev
 

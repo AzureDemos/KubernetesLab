@@ -7,7 +7,13 @@ services:
       context: .
       dockerfile: AKSWebsite/Dockerfile
 
-  api:
+  middle-api:
+    image: api
+    build:
+      context: .
+      dockerfile: AKSAPI/Dockerfile
+
+  backend-api:
     image: api
     build:
       context: .
