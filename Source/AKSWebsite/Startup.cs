@@ -21,7 +21,6 @@ namespace AKSWebsite
              .SetBasePath(env.ContentRootPath)
              .AddJsonFile("Configs/appsettings.json", optional: false, reloadOnChange: true)
              .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Json/configmap-website.json", optional: true, reloadOnChange: true)
-             .AddJsonFile($"Configs/Environments/{env.EnvironmentName}/Secrets/secret-website.json", optional: true, reloadOnChange: true)
              .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -36,12 +35,6 @@ namespace AKSWebsite
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = ForwardedHeaders.All;
-                //- https:/microsoft-my.sharepoint.com/:p:/p/manaccar/EXaCrgJdAOBFov_c0O_0KLwBhGalmbce7xP-1LAUYFwfqg?e=KIra1a
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

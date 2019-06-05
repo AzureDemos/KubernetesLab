@@ -19,7 +19,7 @@
             <blockquote>
                 <p>
                     It's important to understand here, that the container which will eventually be stored in a Container Registry <strong>does not contain the folder named Kubernetes or any of the config files</strong>.
-                    The Kubernetes folder and the JSON and XML files are mounted into the contain by Kubernetes and therefore, we can change these per environment in our CI/CD pipelines without re-building the container.
+                    The Kubernetes folder and the JSON and XML files are mounted into the container by Kubernetes and therefore, we can change these per environment in our CI/CD pipelines without re-building the container.
                 </p>
             </blockquote>
             <div class="col-md-6">
@@ -98,23 +98,9 @@
                     </td>
                     <td><i class="icon fas fa-check-circle"></i></td>
                 </tr>
-                <tr>
-                    <td>Secret</td>
-                    <td>~/<strong>{EnvironmentName}</strong>/Secrets</td>
-                    <td>secret-frontend.json  </td>
-                    <td> API:Key <br /> API:Secret</td>
-                    <td><strong>@Model.Configuration["API:Key"] <br />@Model.Configuration["API:Secret"]</strong></td>
-                    <td><i class="icon fas fa-check-circle"></i></td>
-                </tr>
             </table>
         </div>
     </div>
-
-
-
-
-
-
 
 
     <div class="row">
@@ -179,9 +165,7 @@
         <div class="col-md-12">
 
             <a href="/home/spike?mode=cpu" class="btn btn-danger btn-lg btn-block">Purposely Cause API Memory Spike</a>
-
-           
-                <p>@TempData["SpikeResponse"]</p>
+            <p>@TempData["SpikeResponse"]</p>
             
         </div>
     </div>
