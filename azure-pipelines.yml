@@ -5,33 +5,60 @@ resources:
 - repo: self
 
 variables:
-
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'eb4dd86c-1e8e-430b-acd3-9acc7f266a69'
-  containerRegistry: 'smlakslabacr.azurecr.io'
+  dockerRegistryServiceConnection: 'JuneRegistry'
+  containerRegistry: 'slaksjuneacr.azurecr.io'
   tag: '$(Build.BuildId)'
-  
-  # Kubernetes Namespace
-  k8sNamespace: 'pipe'
-  imagePullSecret: 'smlakslabacr8250-auth'
-
-  # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
   displayName: Build stage
-  variables:
-      containerRegistry: 'smlakslabacr.azurecr.io'
-      tag: '$(Build.BuildId)'
   
   jobs:
     - template: ./DevOps/BuildPipeline.yaml
       parameters:
+        name: BuildAPI
         imageRepository: api
         dockerfilePath: Source/AKSAPI/Dockerfile.ci
-    
-    - template: ./pipelines/buildfunction.yaml      
+        artifactName: 'apimanifest'
+        artifactPath: 'DevOps/Manifests/API'
+
+    - template: ./DevOps/BuildPipeline.yaml      
       parameters:
+        name: BuildWebsite
         imageRepository: website
         dockerfilePath: Source/AKSWebsite/Dockerfile.ci
+        artifactName: 'websitemanifest'
+        artifactPath: 'DevOps/Manifests/Website'
+
+- stage: DeployDev
+  displayName: Deploy to Dev
+  dependsOn: Build
+  variables:
+      imagePullSecret: 'acr-auth'
+      k8sNamespace: 'dev'
+  
+  jobs:
+    - template: ./DevOps/ReleaseAPIPipeline.yaml
+      parameters:
+        name: DeployAPIDev
+        environment: 'Dev.dev'
+        artifactName: 'apimanifest'
+        imageRepository: api
+
+
+- stage: DeployProd
+  displayName: Deploy to Prod
+  dependsOn: DeployDev
+  variables:
+      imagePullSecret: 'acr-auth'
+      k8sNamespace: 'prod'
+  
+  jobs:
+    - template: ./DevOps/ReleaseAPIPipeline.yaml
+      parameters:
+        name: DeployAPIDev
+        environment: 'Prod.prod'
+        artifactName: 'apimanifest'
+        imageRepository: api

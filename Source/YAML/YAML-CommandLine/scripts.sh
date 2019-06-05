@@ -27,11 +27,12 @@ kubectl apply -f ./API/deployment-api.yaml --namespace=dev
 # Delete existing secret
 kubectl delete secret website-secret --namespace=dev
 
+
 # Create secret from file
 kubectl create secret generic website-secret --from-file=./Website/secret-website.json --namespace=dev
 
-
-kubectl create secret generic sss --from-file=./Website/secret-website.json --dry-run -o json | kubectl apply -f - --namespace=dev
+### Create secret one line
+kubectl create secret generic website-secret --from-file=./Website/secret-website.json --dry-run -o json | kubectl apply -f - --namespace=dev
 
 # Create / update config map (inline json)
 kubectl apply -f ./Website/configmap-website.yaml --namespace=dev
@@ -42,7 +43,6 @@ kubectl apply -f ./Website/deployment-website.yaml --namespace=dev
 
 # Scale 
 kubectl scale deployment website-deployment --replicas=2 --namespace=dev
-
 
 
 ------------------------------------- Dont Run this --------------------------------------

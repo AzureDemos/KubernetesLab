@@ -1,0 +1,46 @@
+parameters:
+  name: ''
+  environment: ''
+  artifactName: ''
+  imageRepository: ''
+
+
+jobs:   
+  - deployment: ${{ parameters.name }}
+    displayName: ${{ parameters.name }} job
+    pool:
+      vmImage: $(vmImageName)
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@1
+            inputs:
+              artifactName: '${{ parameters.artifactName }}'
+              downloadPath: '$(System.ArtifactsDirectory)/${{ parameters.artifactName }}'
+
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              namespace: $(k8sNamespace)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              namespace: $(k8sNamespace)
+              manifests: |
+                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/service-middle-api.yaml
+                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/service-backend-api.yaml
+                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/deployment-middle-api.yaml
+                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/deployment-backend-api.yaml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/{{ parameters.imageRepository }}:$(tag)
+
+    

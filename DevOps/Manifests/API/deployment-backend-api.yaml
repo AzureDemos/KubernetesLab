@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: backend-api-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: backend-api
+    spec:
+      containers:
+      - name: backend-api
+        image: azuredemosrepo/aks-lab-api:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "ASPNETCORE_ENVIRONMENT"
+          value: "Kubernetes"
+        - name: "NameofThisService"
+          value: "backend-api"
+        - name: "DownStreamAPIName"
+          value: ""
