@@ -1,0 +1,37 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'eb4dd86c-1e8e-430b-acd3-9acc7f266a69'
+  containerRegistry: 'smlakslabacr.azurecr.io'
+  tag: '$(Build.BuildId)'
+  
+  # Kubernetes Namespace
+  k8sNamespace: 'pipe'
+  imagePullSecret: 'smlakslabacr8250-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  variables:
+      containerRegistry: 'smlakslabacr.azurecr.io'
+      tag: '$(Build.BuildId)'
+  
+  jobs:
+    - template: ./DevOps/BuildPipeline.yaml
+      parameters:
+        imageRepository: api
+        dockerfilePath: Source/AKSAPI/Dockerfile.ci
+    
+    - template: ./pipelines/buildfunction.yaml      
+      parameters:
+        imageRepository: website
+        dockerfilePath: Source/AKSWebsite/Dockerfile.ci

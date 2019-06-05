@@ -1,0 +1,25 @@
+parameters:
+  imageRepository: ''
+  functionDirectory: ''
+
+jobs:  
+  - job: BuildAPI
+    displayName: Build API job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push API image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'apimanifests'
+        targetPath: 'apimanifests'
+
