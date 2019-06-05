@@ -34,9 +34,6 @@ spec:
         - name: jsonconfig-volume
           mountPath: /app/Configs/Environments/Kubernetes/Json
           readOnly: true
-        - name: xmlconfig-volume
-          mountPath: /app/Configs/Environments/Kubernetes/XML
-          readOnly: true
         - name: secrets-volume
           mountPath: /app/Configs/Environments/Kubernetes/Secrets
           readOnly: true
@@ -44,9 +41,6 @@ spec:
       - name: jsonconfig-volume
         configMap:
           name: config-json-website
-      - name: xmlconfig-volume
-        configMap:
-          name: config-xml-website
       - name: secrets-volume
         secret:
           secretName: website-secret

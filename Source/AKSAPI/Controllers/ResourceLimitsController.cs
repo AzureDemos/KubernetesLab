@@ -26,6 +26,7 @@ namespace AKSAPI.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
+            int cacheItems = 20;
             var assembly = typeof(ContentPointer).GetTypeInfo().Assembly;
             string content = "";
             using (var stream = assembly.GetManifestResourceStream($"AKSAPI.Content.LargeTextFile.txt"))
@@ -33,15 +34,15 @@ namespace AKSAPI.Controllers
                 content = reader.ReadToEnd();
 
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
-            for (int i = 0; i < 20; i++) 
+            for (int i = 0; i < cacheItems; i++) 
                 Cache.Set(Guid.NewGuid().ToString(), Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString(), cacheEntryOptions);
 
             
             int? cacheCount = (int?)Cache.Get("ItemsCount");
             if (cacheCount.HasValue) 
-                cacheCount += 50;
+                cacheCount += cacheItems;
             else
-                cacheCount = 50;
+                cacheCount = cacheItems;
 
             Cache.Set("ItemsCount", cacheCount, cacheEntryOptions);
             var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
@@ -49,7 +50,7 @@ namespace AKSAPI.Controllers
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
 
-            return Ok($"Roughly 20 large items added to {ipHostInfo.HostName} Cache. Now contains cacheCount items");
+            return Ok($"{cacheItems} large items added to {ipHostInfo.HostName} Cache. Now contains cacheCount items");
         }
 
      

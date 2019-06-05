@@ -48,7 +48,7 @@ namespace AKSWebsite
             services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
             services.AddTransient<IServiceLocator, DNSServiceLocator>();
-
+            services.AddCookieTempData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +65,7 @@ namespace AKSWebsite
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }
