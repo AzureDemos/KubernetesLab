@@ -46,7 +46,7 @@ namespace AKSAPI.Controllers
 
             Cache.Set("ItemsCount", cacheCount, cacheEntryOptions);
             var byteCountPerItem = System.Text.Encoding.ASCII.GetByteCount(Guid.NewGuid().ToString() + content + Guid.NewGuid().ToString());
-            Cache.Set("MegaBytesCount", (cacheCount.Value * byteCountPerItem) / 1000000, cacheEntryOptions);
+            Cache.Set("MegaBytesCount", (((cacheCount.Value * byteCountPerItem) / 1024) / 1024), cacheEntryOptions);
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
 
