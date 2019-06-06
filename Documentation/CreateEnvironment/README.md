@@ -17,8 +17,8 @@ Copy the script below and replace ```<enter-a-unique-name-here>``` with your own
 ![Paste in Cloud Shell](images/pastecloudshell.png)
 
 ```
-# Set a unquique Resource Group name - THIS CANNOT HAVE Dashes OR Underscores
-RG_NAME=<enter-a-unique-name-here>
+# Sets a random resource and resource group name
+RG_NAME=aks$(date | md5sum | cut -c1-6)
  
 #Create Resource Group
 az group create --name $RG_NAME --location westeurope
@@ -52,8 +52,8 @@ az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable
 az aks get-credentials --resource-group $RG_NAME --name $AKS_Name
  
 # Create Namespaces
-kubectl create --namespace=dev -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-dev.yaml
-kubectl create --namespace=prod -f https://raw.githubusercontent.com/AzureDemos/KubernetesLab/master/Source/YAML/namespace-prod.yaml
+kubectl create namespace dev
+kubectl create namespace prod
 
 # Create secret to connect to ACR for each namespace and the default
 kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER --docker-username $CLIENT_ID --docker-password $SP_PASSWD --docker-email k8slab@azuredemos.com
@@ -63,6 +63,10 @@ kubectl create secret docker-registry acr-auth --docker-server $ACR_LOGIN_SERVER
 # Create ClusterRoleBinding for Dashboard
 kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
 
+# Install Nginx
+helm init
+kubectl create clusterrolebinding kubernetes-default -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:default
+helm install --name helm-init stable/nginx-ingress
 
 ```
 This script can take upto half an hour to run, but once its finished you should have a new resource group with an Azure Container Registry and an AKS Cluster. 
