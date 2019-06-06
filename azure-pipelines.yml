@@ -14,6 +14,7 @@ variables:
   imagePullSecret: 'acr-auth'
   apiManifestName: 'apimanifest'
   websiteManifestName: 'websitemanifest'
+  apiname: 'middle-api'
 
 stages:
 - stage: Build
@@ -41,17 +42,19 @@ stages:
   dependsOn: Build
   variables:
     k8sNamespace: 'dev'
-    environmentName: 'Dev.dev'
+    theme: 'default'
   jobs:
     - template: ./DevOps/ReleasePipeline.yaml
       parameters:
         name: DeployAPIDev
         artifactName: $(apiManifestName)
+        environment: 'Dev.dev'
     
     - template: ./DevOps/ReleasePipeline.yaml
       parameters:
         name: DeployWebsiteDev
         artifactName: $(websiteManifestName)
+        environment: 'Dev.dev'
 
 
 - stage: DeployToProduction
@@ -59,14 +62,16 @@ stages:
   dependsOn: DeployToDev
   variables:
     k8sNamespace: 'prod'
-    environmentName: 'Prod.prod'
+    theme: 'red'
   jobs:
     - template: ./DevOps/ReleasePipeline.yaml
       parameters:
         name: DeployAPIProd
         artifactName: $(apiManifestName)
+        environment: 'Prod.prod'
     
     - template: ./DevOps/ReleasePipeline.yaml
       parameters:
         name: DeployWebsiteProd
         artifactName: $(websiteManifestName)
+        environment: 'Prod.prod'

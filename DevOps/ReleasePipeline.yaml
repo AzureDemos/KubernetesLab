@@ -1,9 +1,7 @@
 parameters:
   name: ''
-  environment: ''
   artifactName: ''
-
-
+  environment: ''
 jobs: 
   - deployment: ${{ parameters.name }}
     displayName: ${{ parameters.name }} job
