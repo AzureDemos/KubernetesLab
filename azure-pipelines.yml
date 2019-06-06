@@ -5,11 +5,15 @@ resources:
 - repo: self
 
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'JuneRegistry'
-  containerRegistry: 'slaksjuneacr.azurecr.io'
-  tag: '$(Build.BuildId)'
+  dockerRegistryServiceConnection: 'JuneRegistry2'
   vmImageName: 'ubuntu-latest'
+  containerRegistry: 'juneregistry2.azurecr.io'
+  tag: '$(Build.BuildId)'
+  apicontainerimage: $(containerRegistry)/api:$(tag)
+  websitecontainerimage: $(containerRegistry)/website:$(tag)
+  imagePullSecret: 'acr-auth'
+  apiManifestName: 'apimanifest'
+  websiteManifestName: 'websitemanifest'
 
 stages:
 - stage: Build
@@ -21,7 +25,7 @@ stages:
         name: BuildAPI
         imageRepository: api
         dockerfilePath: Source/AKSAPI/Dockerfile.ci
-        artifactName: 'apimanifest'
+        artifactName: $(apiManifestName)
         artifactPath: 'DevOps/Manifests/API'
 
     - template: ./DevOps/BuildPipeline.yaml      
@@ -29,36 +33,40 @@ stages:
         name: BuildWebsite
         imageRepository: website
         dockerfilePath: Source/AKSWebsite/Dockerfile.ci
-        artifactName: 'websitemanifest'
+        artifactName: $(websiteManifestName)
         artifactPath: 'DevOps/Manifests/Website'
 
-- stage: DeployDev
+- stage: DeployToDev
   displayName: Deploy to Dev
   dependsOn: Build
   variables:
-      imagePullSecret: 'acr-auth'
-      k8sNamespace: 'dev'
-  
+    k8sNamespace: 'dev'
+    environmentName: 'Dev.dev'
   jobs:
-    - template: ./DevOps/ReleaseAPIPipeline.yaml
+    - template: ./DevOps/ReleasePipeline.yaml
       parameters:
         name: DeployAPIDev
-        environment: 'Dev.dev'
-        artifactName: 'apimanifest'
-        imageRepository: api
+        artifactName: $(apiManifestName)
+    
+    - template: ./DevOps/ReleasePipeline.yaml
+      parameters:
+        name: DeployWebsiteDev
+        artifactName: $(websiteManifestName)
 
 
-- stage: DeployProd
-  displayName: Deploy to Prod
-  dependsOn: DeployDev
+- stage: DeployToProduction
+  displayName: Deploy to Production
+  dependsOn: DeployToDev
   variables:
-      imagePullSecret: 'acr-auth'
-      k8sNamespace: 'prod'
-  
+    k8sNamespace: 'prod'
+    environmentName: 'Prod.prod'
   jobs:
-    - template: ./DevOps/ReleaseAPIPipeline.yaml
+    - template: ./DevOps/ReleasePipeline.yaml
       parameters:
-        name: DeployAPIDev
-        environment: 'Prod.prod'
-        artifactName: 'apimanifest'
-        imageRepository: api
+        name: DeployAPIProd
+        artifactName: $(apiManifestName)
+    
+    - template: ./DevOps/ReleasePipeline.yaml
+      parameters:
+        name: DeployWebsiteProd
+        artifactName: $(websiteManifestName)

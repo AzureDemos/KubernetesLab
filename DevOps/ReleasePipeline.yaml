@@ -2,10 +2,9 @@ parameters:
   name: ''
   environment: ''
   artifactName: ''
-  imageRepository: ''
 
 
-jobs:   
+jobs: 
   - deployment: ${{ parameters.name }}
     displayName: ${{ parameters.name }} job
     pool:
@@ -20,6 +19,16 @@ jobs:
               artifactName: '${{ parameters.artifactName }}'
               downloadPath: '$(System.ArtifactsDirectory)/${{ parameters.artifactName }}'
 
+          - task: replacetokens@3
+            inputs:
+              targetFiles: '$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/*'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '#{'
+              tokenSuffix: '}#'
+
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
@@ -29,18 +38,12 @@ jobs:
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
           - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
+            displayName: Deploy Middle API to Kubernetes cluster
             inputs:
               action: deploy
               namespace: $(k8sNamespace)
               manifests: |
-                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/service-middle-api.yaml
-                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/service-backend-api.yaml
-                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/deployment-middle-api.yaml
-                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/deployment-backend-api.yaml
+                $(System.ArtifactsDirectory)/${{ parameters.artifactName }}/*
               imagePullSecrets: |
                 $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/{{ parameters.imageRepository }}:$(tag)
 
-    

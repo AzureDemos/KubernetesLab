@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-website
+  labels:
+    app: website
+    tier: website
+data:
+  configmap-website.json: |
+    {
+      "API": {
+        "Name": "#{apiname}#"
+      },
+      "App": {
+        "Theme":  "#{theme}#"
+      }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website
+spec:
+  selector:
+    app: website
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: website-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+      - name: website
+        image: #{websitecontainerimage}#
+        ports:
+        - containerPort: 80
+        env:
+        - name: "ASPNETCORE_ENVIRONMENT"
+          value: "Kubernetes"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/Configs/Environments/Kubernetes/Json
+          readOnly: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: config-website
