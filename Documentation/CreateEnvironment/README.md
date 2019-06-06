@@ -18,7 +18,7 @@ Copy the script below and replace ```<enter-a-unique-name-here>``` with your own
 
 ```
 # Sets a random resource and resource group name
-RG_NAME=aks$(date | md5sum | cut -c1-6)
+RG_NAME=aks$(date +%s%N | md5sum | cut -c1-6)
  
 #Create Resource Group
 az group create --name $RG_NAME --location westeurope
@@ -46,7 +46,14 @@ echo "Service principal password: $SP_PASSWD"
  
 # Create Cluster
 AKS_Name="${RG_NAME}-akscluster"
-az aks create --resource-group $RG_NAME --name $AKS_Name --node-count 3 --enable-addons http_application_routing --generate-ssh-keys 
+az aks create \
+    --resource-group $RG_NAME \
+    --name $AKS_Name \
+    --node-count 1 \
+    --enable-addons http_application_routing \
+    --generate-ssh-keys \
+    --network-plugin azure \
+    --network-policy azure 
  
 # Connect to cluster
 az aks get-credentials --resource-group $RG_NAME --name $AKS_Name
@@ -66,7 +73,7 @@ kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterr
 # Install Nginx
 helm init
 kubectl create clusterrolebinding kubernetes-default -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:default
-helm install --name helm-init stable/nginx-ingress
+helm install stable/nginx-ingress
 
 ```
 This script can take upto half an hour to run, but once its finished you should have a new resource group with an Azure Container Registry and an AKS Cluster. 
