@@ -31,8 +31,6 @@ RUN apt-get -y install \
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Install Docker
-RUN export DOCKER_HOST=tcp://localhost:2375
-RUN echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.bashrc
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
