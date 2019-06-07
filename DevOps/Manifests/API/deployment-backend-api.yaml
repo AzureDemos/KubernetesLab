@@ -27,6 +27,13 @@ spec:
         image: #{apicontainerimage}#
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "350Mi"
+            cpu: "200m"
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
@@ -34,3 +41,16 @@ spec:
           value: "backend-api"
         - name: "DownStreamAPIName"
           value: ""
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: autoscale-backend-api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-api-deployment
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50

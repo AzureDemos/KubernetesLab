@@ -21,6 +21,10 @@ kubectl apply -f ./limit-range-memory.yaml --namespace=dev
 kubectl apply -f ./API/deployment-api.yaml --namespace=dev
 
 
+kubectl apply -f ./auto-scale-api.yaml --namespace=dev
+
+
+
 #************************ Deploying the Website *****************************
 #****************************************************************************
 
