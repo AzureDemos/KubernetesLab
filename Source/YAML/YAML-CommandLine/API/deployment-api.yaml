@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: middle-api
+  name: middle-service
 spec:
   selector:
-    app: middle-api
+    app: middle-service
   ports:
   - protocol: TCP
     port: 80
@@ -14,34 +14,41 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: middle-api-deployment
+  name: middle-service-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: middle-api
+        app: middle-service
     spec:
       containers:
-      - name: middle-api
+      - name: middle-service
         image: azuredemosrepo/aks-lab-api:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "350Mi"
+            cpu: "200m"
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
         - name: "NameofThisService"
-          value: "middle-api"
+          value: "middle-service"
         - name: "DownStreamAPIName"
-          value: "backend-api"
+          value: "backend-service"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-api
+  name: backend-service
 spec:
   selector:
-    app: backend-api
+    app: backend-service
   ports:
   - protocol: TCP
     port: 80
@@ -51,21 +58,28 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: backend-api-deployment
+  name: backend-service-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: backend-api
+        app: backend-service
     spec:
       containers:
-      - name: backend-api
+      - name: backend-service
         image: azuredemosrepo/aks-lab-api:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "350Mi"
+            cpu: "200m"
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
         - name: "NameofThisService"
-          value: "backend-api"
+          value: "backend-service"

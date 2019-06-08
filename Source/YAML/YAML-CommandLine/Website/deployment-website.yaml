@@ -1,10 +1,28 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-web
+  labels:
+    app: web
+    tier: web
+data:
+  configmap-website.json: |
+    {
+      "API": {
+        "Name": "middle-service"
+      },
+      "App": {
+        "Theme":  "blue"
+      }
+    }
+---
+apiVersion: v1
 kind: Service
 metadata:
-  name: website
+  name: web
 spec:
   selector:
-    app: website
+    app: web
   ports:
   - protocol: TCP
     port: 80
@@ -14,33 +32,63 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: website-deployment
+  name: web-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: website
+        app: web
     spec:
       containers:
-      - name: website
+      - name: web
         image: azuredemosrepo/aks-lab-website:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "350Mi"
+            cpu: "200m"
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
         volumeMounts:
-        - name: jsonconfig-volume
+        - name: config-volume
           mountPath: /app/Configs/Environments/Kubernetes/Json
           readOnly: true
-        - name: secrets-volume
-          mountPath: /app/Configs/Environments/Kubernetes/Secrets
-          readOnly: true
       volumes:
-      - name: jsonconfig-volume
+      - name: config-volume
         configMap:
-          name: config-json-website
-      - name: secrets-volume
-        secret:
-          secretName: website-secret
+          name: config-web
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: autoscale-website
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-deployment
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: web.dev.{YOUR HTTPApplicationRoutingZoneName HERE}
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 80
+        path: /
