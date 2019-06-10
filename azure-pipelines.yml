@@ -5,9 +5,10 @@ resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: 'JuneRegistry2'
   vmImageName: 'ubuntu-latest'
-  containerRegistry: 'juneregistry2.azurecr.io'
+  registryUser: 'placeholder'
+  registryPassword: 'placeholder'
+  containerRegistry: 'placeholder'
   tag: '$(Build.BuildId)'
   apicontainerimage: $(containerRegistry)/api:$(tag)
   websitecontainerimage: $(containerRegistry)/website:$(tag)
@@ -21,21 +22,21 @@ stages:
   displayName: Build stage
   
   jobs:
-    - template: ./DevOps/BuildPipeline.yaml
-      parameters:
-        name: BuildAPI
-        imageRepository: api
-        dockerfilePath: Source/AKSAPI/Dockerfile.ci
-        artifactName: $(apiManifestName)
-        artifactPath: 'DevOps/Manifests/API'
+  - template: ./DevOps/BuildPipeline.yaml
+    parameters:
+      name: BuildAPI
+      imageRepository: api
+      dir: ./Source/AKSAPI
+      artifactName: $(apiManifestName)
+      artifactPath: 'DevOps/Manifests/API'
 
-    - template: ./DevOps/BuildPipeline.yaml      
-      parameters:
-        name: BuildWebsite
-        imageRepository: website
-        dockerfilePath: Source/AKSWebsite/Dockerfile.ci
-        artifactName: $(websiteManifestName)
-        artifactPath: 'DevOps/Manifests/Website'
+  - template: ./DevOps/BuildPipeline.yaml      
+    parameters:
+      name: BuildWebsite
+      imageRepository: website
+      dir: ./Source/AKSWebsite
+      artifactName: $(websiteManifestName)
+      artifactPath: 'DevOps/Manifests/Website'
 
 - stage: DeployToDev
   displayName: Deploy to Dev
@@ -55,7 +56,6 @@ stages:
         name: DeployWebsiteDev
         artifactName: $(websiteManifestName)
         environment: 'Dev.dev'
-
 
 - stage: DeployToProduction
   displayName: Deploy to Production

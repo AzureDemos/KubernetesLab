@@ -31,9 +31,10 @@ jobs:
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
-              secretName: $(imagePullSecret)
+              secretName: $(imagePullSecret)              
+              secretType: 'generic'
               namespace: $(k8sNamespace)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              secretArguments: '{"auths":{"$(containerRegistry)":{"username":"$(registryUser)","password":"$(registryPassword)","email":"not@needed.com"}}}'
 
           - task: KubernetesManifest@0
             displayName: Deploy Middle API to Kubernetes cluster

@@ -1,7 +1,7 @@
 parameters:
   name: ''
   imageRepository: ''
-  dockerfilePath: ''
+  dir: ''
   artifactName: ''
   artifactPath: ''
 
@@ -11,25 +11,14 @@ jobs:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      displayName: Login to ACR
-      inputs:
-        command: login
-        containerRegistry: $(dockerRegistryServiceConnection)
-    - task: Docker@2
-      displayName: Build and push image to container registry
-      inputs:
-        command: buildAndPush
-        repository: ${{ parameters.imageRepository }}
-        dockerfile: ${{ parameters.dockerfilePath }}
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-          latest
+    - script: docker login -u $(registryUser) -p $(registryPassword) $(containerRegistry)
+      displayName: 'docker login'
+    - script: docker build -t $(containerRegistry)/${{ parameters.imageRepository }}:$(tag) -f ${{ parameters.dir }}/Dockerfile.ci ${{ parameters.dir }}
+      displayName: 'docker build'
+    - script: docker push $(containerRegistry)/${{ parameters.imageRepository }}:$(tag)
+      displayName: 'docker push'
           
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: ${{ parameters.artifactName }}
         targetPath: ${{ parameters.artifactPath }}
-
-  
