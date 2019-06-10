@@ -47,6 +47,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y apt-transport-h
    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
    && apt-get update && apt-get install --no-install-recommends -y kubectl
 
+# Install helm
+RUN curl -sL https://git.io/get_helm.sh | bash
+
 ## Install .NET
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg \
    && mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ \
