@@ -49,7 +49,7 @@ AKS_Name="${RG_NAME}-akscluster"
 az aks create \
     --resource-group $RG_NAME \
     --name $AKS_Name \
-    --node-count 1 \
+    --node-count 3 \
     --enable-addons http_application_routing \
     --generate-ssh-keys \
     --network-plugin azure \
@@ -73,6 +73,7 @@ kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterr
 # Install Nginx
 helm init
 kubectl create clusterrolebinding kubernetes-default -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:default
+sleep 60s # hack needed to give tiller to sort its self out.
 helm install stable/nginx-ingress
 
 ```

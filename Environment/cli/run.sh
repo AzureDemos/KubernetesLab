@@ -30,7 +30,7 @@ AKS_Name="${RG_NAME}-akscluster"
 az aks create \
     --resource-group $RG_NAME \
     --name $AKS_Name \
-    --node-count 1 \
+    --node-count 3 \
     --enable-addons http_application_routing \
     --generate-ssh-keys \
     --network-plugin azure \
