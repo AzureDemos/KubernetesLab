@@ -85,7 +85,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-  - host: web.dev.{YOUR HTTPApplicationRoutingZoneName HERE}
+  - host: web.demo.{APPRoutingDomainHERE}
     http:
       paths:
       - backend:
