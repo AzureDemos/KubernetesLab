@@ -5,9 +5,9 @@ resources:
 - repo: self
 
 variables:
-  dockerRegistryServiceConnection: 'JuneRegistry2'
+  dockerRegistryServiceConnection: '{EnterServiceConnection}'
   vmImageName: 'ubuntu-latest'
-  containerRegistry: 'juneregistry2.azurecr.io'
+  containerRegistry: '{YourACRName}.azurecr.io'
   tag: '$(Build.BuildId)'
   apicontainerimage: $(containerRegistry)/api:$(tag)
   websitecontainerimage: $(containerRegistry)/website:$(tag)
