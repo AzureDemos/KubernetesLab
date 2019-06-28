@@ -92,3 +92,23 @@ spec:
         backend:
           serviceName: web-service
           servicePort: 80
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tool-dockercheck-role
+rules:
+    - apiGroups: [""] 
+      # "" indicates the core API group
+      resources: ["deployments", "namespaces", "pods", "services"]
+      verbs: ["get", "list", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: demo
+  name: pod-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods","namespaces"]
+  verbs: ["get", "watch", "list"]

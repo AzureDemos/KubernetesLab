@@ -87,6 +87,10 @@ namespace AKSWebsite.Controllers
             catch (Exception ex)
             {
                 mod.Error = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    mod.Error += " - " + ex.InnerException.Message;
+                }
             }
             
 
