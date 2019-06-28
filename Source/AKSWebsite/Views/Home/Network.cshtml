@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Network Policy test";
+}
+@using System.Net
+@model APIResponse
+@*<div class="container body-content">
+    <img src="https://github.com/AzureDemos/KubernetesLab/raw/master/Documentation/images/banner-lab.png" class="banner" />
+
+    <div class="row">
+        <div class="col-md-12">
+                <p class="api-response ">API Responses</p>
+                @{
+                    int iteration = 1;
+                }
+                @foreach (var response in @Model.Responses.AsEnumerable().Reverse().ToList())
+                {
+                <h4>@response.Response</h4>
+                <p>Host: @response.HostName</p>
+                <p>@response.CacheData</p>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Header Key</th>
+                        <th>Header Value</th>
+                    </tr>
+                    @foreach (var header in response.Headers)
+                    {
+                    <tr>
+                        <td>@header.Key</td>
+                        <td>@header.Value</td>
+                    </tr>
+                    }
+                </table>
+                        if (iteration < Model.APIResponse.Responses.Count)
+                        {
+                            <i class="icon fas fa-arrow-circle-down downstream"></i>
+                            iteration++;
+                        }
+
+                <br />  <br />
+                }
+        </div>
+    </div>
+
+
+</div>*@

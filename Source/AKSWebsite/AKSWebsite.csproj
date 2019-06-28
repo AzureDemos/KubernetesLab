@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.CookieTempData" Version="1.0.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
+    <PackageReference Include="KubernetesClient" Version="1.5.19" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 

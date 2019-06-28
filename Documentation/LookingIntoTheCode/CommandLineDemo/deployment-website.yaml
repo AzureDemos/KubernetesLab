@@ -82,13 +82,13 @@ kind: Ingress
 metadata:
   name: web-ingress
   annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: web.demo.{APPRoutingDomainHERE}
+  - host:
     http:
       paths:
-      - backend:
+      - path: /
+        backend:
           serviceName: web
           servicePort: 80
-        path: /

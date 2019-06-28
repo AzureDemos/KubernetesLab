@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AKSWebsite.Models;
 using Microsoft.Extensions.Configuration;
 using AKSWebsite.Services;
+using k8s;
 
 namespace AKSWebsite.Controllers
 {
@@ -54,6 +55,32 @@ namespace AKSWebsite.Controllers
 
             return View();
         }
+
+        public IActionResult Cluster()
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            var config = KubernetesClientConfiguration.BuildDefaultConfig();
+            IKubernetes client = new Kubernetes(config);
+            Console.WriteLine("Starting Request!");
+
+            var list = client.ListNamespacedPod("default");
+
+            System.String conent = "";
+            foreach (var item in list.Items)
+            {
+                conent += item.Metadata.Name + " ------------------ ";
+            }
+  
+
+            return View(conent);
+        }
+
+        public IActionResult Slides()
+        {
+            return View();
+        }
+
 
         public IActionResult Contact()
         {
