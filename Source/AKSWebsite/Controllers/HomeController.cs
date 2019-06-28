@@ -62,7 +62,8 @@ namespace AKSWebsite.Controllers
             var mod = new ClusterResponse();
             try
             {
-                var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+                //var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(); //remote
+                var config = KubernetesClientConfiguration.InClusterConfig();
                 IKubernetes client = new Kubernetes(config);
                 Console.WriteLine("Starting Request!");
 
