@@ -1,12 +1,43 @@
 ﻿@{
     ViewData["Title"] = "Cluster";
 }
-@model System.String;
+@model ClusterResponse;
 <div class="container body-content about">
-    <br />
-    <div class="jumbotron">
-        <h1>Here - @Model</h1>
-    </div>
+    <h3>Demo Namespace Pods <small> - last checked @DateTime.Now.ToString("HH:mm:ss")</small></h3>
+    @if (String.IsNullOrEmpty(Model.Error))
+    {
 
-
+        @foreach (var collection in Model.PodCollections)
+        {
+            <div class="row k8s-service">
+                <div class="col-md-12  ">
+                    <h5>@collection.Name</h5>
+                </div>
+            
+                @foreach (var pod in collection.Pods)
+                {
+                    <div class="col-md-2  ">
+                        <div class="k8s-pod ">
+                            <p class="name">-@pod.Metadata.Name.Substring(pod.Metadata.Name.LastIndexOf('-') + 1, (pod.Metadata.Name.Length - pod.Metadata.Name.LastIndexOf('-')) - 1) </p>
+                            Host @pod.Status.HostIP <br />
+                            <span class="@Html.Raw(pod.Status.Phase == "Pending" ? "pending" : "")">Phase @pod.Status.Phase</span> <br />
+                            <small>Message @pod.Status.Message </small>
+      
+                        </div>
+                    </div>
+                }
+            </div>
+            <br />
+        }
+    }
+    else
+    {
+        <h4>@Model.Error</h4>
+    }
 </div>
+
+<script type="text/javascript">
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 1000);
+</script>

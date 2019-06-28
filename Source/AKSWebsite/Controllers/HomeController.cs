@@ -56,24 +56,40 @@ namespace AKSWebsite.Controllers
             return View();
         }
 
-        public IActionResult Cluster()
+        public async Task<IActionResult> Cluster(string ns = "demo")
         {
-            ViewData["Message"] = "Your application description page.";
 
-            var config = KubernetesClientConfiguration.InClusterConfig()
-            IKubernetes client = new Kubernetes(config);
-            Console.WriteLine("Starting Request!");
-
-            var list = client.ListNamespacedPod("default");
-
-            System.String conent = "";
-            foreach (var item in list.Items)
+            var mod = new ClusterResponse();
+            try
             {
-                conent += item.Metadata.Name + " ------------------ ";
-            }
-  
+                var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+                IKubernetes client = new Kubernetes(config);
+                Console.WriteLine("Starting Request!");
 
-            return View(conent);
+                var list = await client.ListNamespacedPodAsync(ns);
+                PodCollection webPods = new PodCollection() { Name = "Website Pods" };
+                PodCollection middlePods = new PodCollection() { Name = "Middle API Pods" };
+                PodCollection backendPods = new PodCollection() { Name = "Backend API Pods" };
+                foreach (var item in list.Items)
+                {
+                    if (item.Metadata.Name.ToLower().Contains("web"))
+                        webPods.Pods.Add(item);
+                    if (item.Metadata.Name.ToLower().Contains("middle"))
+                        middlePods.Pods.Add(item);
+                    if (item.Metadata.Name.ToLower().Contains("backend"))
+                        backendPods.Pods.Add(item);
+                }
+                mod.PodCollections.Add(webPods);
+                mod.PodCollections.Add(middlePods);
+                mod.PodCollections.Add(backendPods);
+            }
+            catch (Exception ex)
+            {
+                mod.Error = ex.Message;
+            }
+            
+
+            return View(mod);
         }
 
         public IActionResult Slides()
