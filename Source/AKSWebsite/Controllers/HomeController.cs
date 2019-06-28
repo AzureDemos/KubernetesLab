@@ -60,7 +60,7 @@ namespace AKSWebsite.Controllers
         {
             ViewData["Message"] = "Your application description page.";
 
-            var config = KubernetesClientConfiguration.BuildDefaultConfig();
+            var config = KubernetesClientConfiguration.InClusterConfig()
             IKubernetes client = new Kubernetes(config);
             Console.WriteLine("Starting Request!");
 
