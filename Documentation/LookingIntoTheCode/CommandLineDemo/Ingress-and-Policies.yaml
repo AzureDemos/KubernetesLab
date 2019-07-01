@@ -4,18 +4,17 @@ metadata:
   name: apps-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/app-root: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - host: 
     http:
       paths:
-      - path: /web
+      - path: /web(/|$)(.*)
         backend:
           serviceName: web-service
           servicePort: 80
-      - path: /middle
+      - path: /middle(/|$)(.*)
         backend:
           serviceName: middle-api-service
           servicePort: 80
