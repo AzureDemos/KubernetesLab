@@ -47,7 +47,7 @@ namespace AKSAPI
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.All
             });
             if (env.IsDevelopment())
             {
