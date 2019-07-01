@@ -34,8 +34,8 @@ namespace AKSWebsite
             
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedForHeaderName = "X-Original-URI";
-                //options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+               // options.ForwardedForHeaderName = "X-Original-URI";
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -63,8 +63,9 @@ namespace AKSWebsite
             
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedForHeaderName = "X-Original-URI"
-            });
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            //ForwardedForHeaderName = "X-Original-URI"
+        });
             app.UseDeveloperExceptionPage(); //We are leaving this on for this demo to help trace any errors
             app.UseStaticFiles();
             app.UseCookiePolicy();

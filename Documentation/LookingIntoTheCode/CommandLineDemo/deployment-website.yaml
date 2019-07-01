@@ -9,7 +9,7 @@ data:
   configmap-website.json: |
     {
       "API": {
-        "Name": "middle-service"
+        "Name": "middle-api-service"
       },
       "App": {
         "Theme":  "blue"
