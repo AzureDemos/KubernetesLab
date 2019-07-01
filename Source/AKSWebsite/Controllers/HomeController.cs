@@ -16,11 +16,13 @@ namespace AKSWebsite.Controllers
         private IConfiguration Config;
         private IServiceLocator ServiceLocator;
         private IAPIService APIService;
-        public HomeController(IConfiguration config, IServiceLocator serviceLocator, IAPIService apiService)
+        private IKubernetes K8sClient;
+        public HomeController(IConfiguration config, IServiceLocator serviceLocator, IAPIService apiService, IKubernetes k8sClient)
         {
             Config = config;
             ServiceLocator = serviceLocator;
             APIService = apiService;
+            K8sClient = k8sClient;
         }
 
         public async Task <IActionResult> Index()
@@ -62,12 +64,8 @@ namespace AKSWebsite.Controllers
             var mod = new ClusterResponse();
             try
             {
-                //var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(); //remote
-                var config = KubernetesClientConfiguration.InClusterConfig();
-                IKubernetes client = new Kubernetes(config);
-                Console.WriteLine("Starting Request!");
 
-                var list = await client.ListNamespacedPodAsync(ns);
+                var list = await K8sClient.ListNamespacedPodAsync(ns);
                 PodCollection webPods = new PodCollection() { Name = "Website Pods" };
                 PodCollection middlePods = new PodCollection() { Name = "Middle API Pods" };
                 PodCollection backendPods = new PodCollection() { Name = "Backend API Pods" };

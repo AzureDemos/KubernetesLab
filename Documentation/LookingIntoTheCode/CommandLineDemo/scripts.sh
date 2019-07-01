@@ -14,12 +14,15 @@ kubectl apply -f ./deployment-api.yaml --namespace=demo
 # Deploy the website
 kubectl apply -f ./deployment-website.yaml --namespace=demo
 
-
+# Deploy the Ingress and Policies
+kubectl apply -f ./Ingress-and-Policies.yaml --namespace=demo
 ---------------------------------------------------------------------------------------------------------------------------
 
 # Delete these deployments
+kubectl delete -f ./Ingress-and-Policies.yaml --namespace=demo
 kubectl delete -f ./deployment-api.yaml --namespace=demo
 kubectl delete -f ./deployment-website.yaml --namespace=demo
+
 
 
 ---------------------------------------------------------------------------------------------------------------------------

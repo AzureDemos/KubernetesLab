@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AKSWebsite.Services;
+using k8s;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,12 @@ namespace AKSWebsite
             services.AddTransient(x => Configuration);
             services.AddTransient<IAPIService, APIService>();
             services.AddTransient<IServiceLocator, DNSServiceLocator>();
+
+            if (this.Configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+                services.AddSingleton<IKubernetes>(new Kubernetes(KubernetesClientConfiguration.BuildConfigFromConfigFile()));
+            else
+                services.AddSingleton<IKubernetes>(new Kubernetes(KubernetesClientConfiguration.InClusterConfig()));
+
             services.AddCookieTempData();
         }
 
