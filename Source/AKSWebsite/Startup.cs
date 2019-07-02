@@ -65,13 +65,14 @@ namespace AKSWebsite
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
            
-           // app.UsePathBase("/web"); // DON'T FORGET THE LEADING SLASH!
+           app.UsePathBase("/web"); // DON'T FORGET THE LEADING SLASH!
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                //ForwardedForHeaderName = "X-Original-URI",
-                //OriginalForHeaderName = "X-Original-URI",
-                //OriginalHostHeaderName = "X-Original-URI",
+
+                ForwardedForHeaderName = "X-Original-URI",
+                OriginalForHeaderName = "X-Original-URI",
+                OriginalHostHeaderName = "X-Original-URI",
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 

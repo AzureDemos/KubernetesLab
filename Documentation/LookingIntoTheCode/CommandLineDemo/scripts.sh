@@ -11,6 +11,7 @@ kubectl create namespace demo
 
 # Label the Kube System Namespace - Only run this once
 kubectl label namespace/kube-system name=kube-system
+kubectl label namespace/default name=default-ns
 
 # Apply Default Limit Ranges - Only run this once
 kubectl apply -f ./limit-range-memory.yaml -n demo
