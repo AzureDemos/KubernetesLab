@@ -2,6 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: apps-ingress
+  labels:
+    name: apps-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -12,10 +14,10 @@ spec:
       paths:
       - path: /web(/|$)(.*)
         backend:
-          serviceName: web-service
+          serviceName: web
           servicePort: 80
       - path: /middle(/|$)(.*)
         backend:
-          serviceName: middle-api-service
+          serviceName: middle-api
           servicePort: 80
       

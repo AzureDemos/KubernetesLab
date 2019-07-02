@@ -31,12 +31,14 @@ namespace AKSWebsite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            //services.Configure<ForwardedHeadersOptions>(options =>
-            //{
-            //   // options.ForwardedForHeaderName = "X-Original-URI";
-            //    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            //});
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                //options.ForwardedForHeaderName = "X-Original-URI";
+                //options.OriginalForHeaderName = "X-Original-URI";
+                //options.OriginalHostHeaderName = "X-Original-URI";
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -55,18 +57,23 @@ namespace AKSWebsite
                 services.AddSingleton<IKubernetes>(new Kubernetes(KubernetesClientConfiguration.InClusterConfig()));
 
             services.AddCookieTempData();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsePathBase("/web"); // DON'T FORGET THE LEADING SLASH!
-            
-        //    app.UseForwardedHeaders(new ForwardedHeadersOptions
-        //    {
-        //        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-        //    //ForwardedForHeaderName = "X-Original-URI"
-        //});
+           
+           // app.UsePathBase("/web"); // DON'T FORGET THE LEADING SLASH!
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                //ForwardedForHeaderName = "X-Original-URI",
+                //OriginalForHeaderName = "X-Original-URI",
+                //OriginalHostHeaderName = "X-Original-URI",
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
 
             app.UseDeveloperExceptionPage(); //We are leaving this on for this demo to help trace any errors
@@ -75,6 +82,7 @@ namespace AKSWebsite
 
             app.UseMvc(routes =>
             {
+                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

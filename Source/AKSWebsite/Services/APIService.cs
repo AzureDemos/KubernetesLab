@@ -32,7 +32,7 @@ namespace AKSWebsite.Services
         {   try
             {
                 var uri = this.GetURI("/api/status");
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient() {  Timeout = TimeSpan.FromSeconds(10) })  //set timeout, as requests will fail when network policies are enforced and we want our website to show the error, instead of also timing out
                 using (HttpResponseMessage res = await client.GetAsync(uri))
                 using (HttpContent content = res.Content)
                 {
@@ -56,7 +56,7 @@ namespace AKSWebsite.Services
             try
             {
                 var uri = this.GetURI("/api/TestResourceLimits");
-                using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient() { Timeout = TimeSpan.FromSeconds(10) })  //set timeout, as requests will fail when network policies are enforced and we want our website to show the error, instead of also timing out
                 using (HttpResponseMessage res = await client.GetAsync(uri))
                 using (HttpContent content = res.Content)
                 {

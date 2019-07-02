@@ -9,7 +9,7 @@ data:
   configmap-website.json: |
     {
       "API": {
-        "Name": "middle-api-service"
+        "Name": "middle-api"
       },
       "App": {
         "Theme":  "blue"
@@ -19,7 +19,9 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-service
+  name: web
+  labels:
+    app: web
 spec:
   selector:
     app: web

@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: middle-api-service
+  name: middle-api
+  labels:
+    app: middle-api
 spec:
   selector:
     app: middle-api
@@ -38,9 +40,9 @@ spec:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
         - name: "NameofThisService"
-          value: "middle-api-service"
+          value: "middle-api"
         - name: "DownStreamAPIName"
-          value: "backend-api-service"
+          value: "backend-api"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -58,7 +60,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-api-service
+  name: backend-api
+  labels:
+    app: backend-api
 spec:
   selector:
     app: backend-api
@@ -95,7 +99,7 @@ spec:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
         - name: "NameofThisService"
-          value: "backend-api-service"
+          value: "backend-api"
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler

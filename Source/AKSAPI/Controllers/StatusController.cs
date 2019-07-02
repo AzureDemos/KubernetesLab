@@ -41,7 +41,7 @@ namespace AKSAPI.Controllers
             {
                 try
                 {
-                    using (HttpClient client = new HttpClient())
+                    using (HttpClient client = new HttpClient() { Timeout = TimeSpan.FromSeconds(5) }) //set timeout, as requests will fail when network policies are enforced and we want our website to show the error, instead of also timing out
                     using (HttpResponseMessage res = await client.GetAsync("http://" + downStreamAPIName + "/api/status"))
                     using (HttpContent content = res.Content)
                     {
