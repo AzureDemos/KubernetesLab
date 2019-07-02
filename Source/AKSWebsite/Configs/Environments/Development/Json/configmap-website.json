@@ -1,8 +1,9 @@
 {
+  "PathBase": "/web",
   "API": {
     "Name": "middle-api"
   },
   "App": {
-    "Theme":  "Default"
+    "Theme": "Default"
   }
 }
