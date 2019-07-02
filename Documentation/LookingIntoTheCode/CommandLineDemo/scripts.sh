@@ -19,6 +19,9 @@ kubectl apply -f ./limit-range-memory.yaml -n demo
 -------------------------------------------------------------------------------------------------------------------------
 # Copy and past all of these terminal
 
+# Create Service Account that can access cluster
+kubectl apply -f ./service-account.yaml -n demo
+
 # Deploy the API
 kubectl apply -f ./deployment-api.yaml -n demo
 
@@ -37,7 +40,7 @@ kubectl delete -f ./ingress-rules.yaml -n demo
 kubectl delete -f ./deployment-api.yaml -n demo
 kubectl delete -f ./deployment-website.yaml -n demo
 kubectl delete -f ./network-policy.yaml -n demo
-
+kubectl delete -f ./service-account.yaml -n demo
 
 ---------------------------------------------------------------------------------------------------------------------------
 
