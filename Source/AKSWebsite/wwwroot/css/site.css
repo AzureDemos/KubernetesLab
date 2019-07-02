@@ -124,3 +124,7 @@ body {
 .pending {
     color: red;
 }
+
+.error {
+    color: red !important;
+}

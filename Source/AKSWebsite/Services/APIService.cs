@@ -45,7 +45,8 @@ namespace AKSWebsite.Services
                 APIResponse response = new APIResponse();
                 response.Responses.Add(new APIResponseDetails()
                 {
-                    Response = $"An error occurred calling the api - {ex.Message}"
+                    Response = $"An error occurred calling the api - {ex.Message}",
+                    IsError = true
                 });
                 return response;
             }

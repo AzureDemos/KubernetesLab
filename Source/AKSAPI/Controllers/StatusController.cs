@@ -51,9 +51,10 @@ namespace AKSAPI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    response.Responses.Add( new APIResponseDetails()
+                    response.Responses.Add(new APIResponseDetails()
                     {
-                        Response = $"An Error Occurred calling {downStreamAPIName}"
+                        Response = $"An Error Occurred calling {downStreamAPIName}",
+                        IsError = true
                     });
                 }
             }

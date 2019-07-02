@@ -47,4 +47,4 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: middle-api
+          app: middle-api2
