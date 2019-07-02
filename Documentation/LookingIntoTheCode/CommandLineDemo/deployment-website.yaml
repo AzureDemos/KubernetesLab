@@ -57,6 +57,8 @@ spec:
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
+        - name: "PathBase"
+          value: "/web"
         volumeMounts:
         - name: config-volume
           mountPath: /app/Configs/Environments/Kubernetes/Json

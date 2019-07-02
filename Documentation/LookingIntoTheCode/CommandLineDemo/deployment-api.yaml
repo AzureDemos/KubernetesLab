@@ -39,6 +39,8 @@ spec:
         env:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: "Kubernetes"
+        - name: "PathBase"
+          value: "/middle"
         - name: "NameofThisService"
           value: "middle-api"
         - name: "DownStreamAPIName"
