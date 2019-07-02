@@ -61,7 +61,7 @@ namespace AKSWebsite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (!String.IsNullOrEmpty(Configuration["pathbase"]))
+            if (!String.IsNullOrEmpty(Configuration["PathBase"]))
                 app.UsePathBase(Configuration["PathBase"]);
             app.UseForwardedHeaders();
             app.UseDeveloperExceptionPage(); //We are leaving this on for this demo to help trace any errors
