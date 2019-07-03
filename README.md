@@ -15,6 +15,7 @@ Topics covered by this lab:
 - Setting resource limits for Pods and testing them
 - Setting auto scaling rules for Pods and testing them
 - Setting network policies for your cluster and testing them
+- Defining Cluster Roles, and assigning Service Accounts to your PODs
 - Creating YAML based pipelines to multiple environments with Azure DevOps
 - Monitoring your applications & infrastructure with Log Analytics, Container Insights and Application Insights
 
