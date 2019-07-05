@@ -21,6 +21,8 @@ Topics covered by this lab:
 
 New Something khdsgndjftnk
 
+New 1
+
 ## Lab Architecture and Technologies 
 
 ![Architecture](/Documentation/images/architecture.png)
