@@ -19,9 +19,7 @@ Topics covered by this lab:
 - Creating YAML based pipelines to multiple environments with Azure DevOps
 - Monitoring your applications & infrastructure with Log Analytics, Container Insights and Application Insights
 
-New Something khdsgndjftnk
 
-New 1
 
 ## Lab Architecture and Technologies 
 
