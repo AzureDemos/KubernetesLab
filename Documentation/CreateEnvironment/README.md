@@ -49,10 +49,11 @@ kubectl create namespace prod
 kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
 
 # Install Nginx
-helm init
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
 kubectl create clusterrolebinding kubernetes-default -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:default
 sleep 60s # hack needed to give tiller to sort its self out.
-helm install stable/nginx-ingress
+helm install stable/nginx-ingress --generate-name
 
 ```
 This script can take upto half an hour to run, but once its finished you should have a new resource group with an Azure Container Registry and an AKS Cluster. 
