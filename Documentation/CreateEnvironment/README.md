@@ -25,7 +25,7 @@ az group create --name $RG_NAME --location westeurope
  
 # Create Container Registry (ACR)
 ACR_Name="${RG_NAME}ACR"
-#az acr create --resource-group $RG_NAME --name $ACR_Name --sku Standard --admin-enabled
+az acr create --resource-group $RG_NAME --name $ACR_Name --sku Standard --admin-enabled
  
 # Create Cluster
 AKS_Name="${RG_NAME}-akscluster"
