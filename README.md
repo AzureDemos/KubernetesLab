@@ -2,6 +2,8 @@
 
 # Kubernetes Lab
 
+## The workshop is currently being re-written, and existing code remains for reference purpose only for previous attendees of this workshop. 
+
 Welcome to the Kubernetes Lab. This lab is designed to demonstrate how to build a DotNet Core applications and deploy it into Kubernetes on Azure (AKS). 
 
 Topics covered by this lab: 
